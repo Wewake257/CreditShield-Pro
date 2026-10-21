@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>CreditShield App — Interactive Mobile Experience & CIBIL Decrypter</title>
+  <meta name="description" content="Experience CreditShield as an interactive mobile app on your screen. Calculate CIBIL scores, loan EMIs, hidden bank markups, and multi-card rebalancing. Built by Vivek Kumar (TISS Mumbai)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --phone-w: 410px;
+      --phone-h: 840px;
+      --phone-bezel: #1F293D;
+      --phone-titanium: #334155;
+      
+      --app-bg: #070B16;
+      --app-card: #0F172A;
+      --app-card-subtle: #141E33;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.4);
+
+      --primary-cyan: #38BDF8;
+      --primary-indigo: #6366F1;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-crimson: #EF4444;
+      --accent-purple: #A855F7;
+
+      --text-main: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      background: #040711;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Desktop Showcase Wrapper */
+    .showcase-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      gap: 50px;
+      background: radial-gradient(circle at 50% 30%, #0F172A 0%, #040711 70%);
+      position: relative;
+    }
+    @media (max-width: 1050px) {
+      .showcase-stage {
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 30px;
+      }
+    }
+
+    /* Left Side: Desktop Presentation & Quick Scenario Desk */
+    .stage-sidebar {
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    @media (max-width: 1050px) {
+      .stage-sidebar {
+        max-width: 100%;
+        text-align: center;
+        align-items: center;
+      }
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--primary-cyan);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-emerald);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    h1.sidebar-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #FFFFFF 40%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sidebar-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Quick Test Scenarios */
+    .scenario-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      width: 100%;
+    }
+    .scenario-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #E2E8F0;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .scenario-btn-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .btn-scenario {
+      background: var(--app-card-subtle);
+      border: 1px solid var(--border-subtle);
+      color: #CBD5E1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-scenario:hover {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--primary-indigo);
+      color: #fff;
+      transform: translateX(4px);
+    }
+    .btn-scenario span.tag {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Creator & Action CTA Card */
+    .recruiter-desk-card {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      width: 100%;
+    }
+    .creator-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .creator-role {
+      font-size: 13px;
+      color: var(--primary-cyan);
+      margin-bottom: 14px;
+    }
+    .cta-btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-cta {
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-cta:hover {
+      background: var(--primary-indigo);
+      border-color: var(--primary-indigo);
+    }
+    .btn-cta-primary {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      border: none;
+    }
+    .btn-cta-primary:hover {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    }
+
+    /* ========================================= */
+    /*   SMARTPHONE HARDWARE FRAME (DESKTOP)     */
+    /* ========================================= */
+    .phone-simulator {
+      position: relative;
+      width: var(--phone-w);
+      height: var(--phone-h);
+      background: #020617;
+      border-radius: 54px;
+      box-shadow: 
+        0 0 0 4px #475569,
+        0 0 0 10px #1E293B,
+        0 25px 60px -10px rgba(0, 0, 0, 0.8),
+        0 0 80px rgba(56, 189, 248, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 3px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.3s ease;
+    }
+
+    /* On mobile screen, phone simulator expands to natural 100% full screen */
+    @media (max-width: 500px) {
+      .showcase-stage {
+        padding: 0;
+      }
+      .stage-sidebar {
+        display: none;
+      }
+      .phone-simulator {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+      }
+    }
+
+    /* Physical Phone Buttons */
+    .phone-simulator::before {
+      content: '';
+      position: absolute;
+      left: -13px;
+      top: 140px;
+      width: 4px;
+      height: 36px;
+      background: #475569;
+      border-radius: 4px 0 0 4px;
+      box-shadow: 0 50px 0 #475569, 0 105px 0 #475569;
+    }
+    .phone-simulator::after {
+      content: '';
+      position: absolute;
+      right: -13px;
+      top: 180px;
+      width: 4px;
+      height: 60px;
+      background: #475569;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Dynamic Island */
+    .phone-top-island-wrap {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      right: 0;
+      height: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .dynamic-island {
+      width: 120px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.8);
+      pointer-events: auto;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dynamic-island:hover {
+      width: 135px;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+    .island-cam {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #0D1629;
+      border: 1px solid #1E293B;
+    }
+    .island-sensor {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #052e16;
+    }
+
+    /* Smartphone Status Bar */
+    .phone-status-bar {
+      height: 48px;
+      padding: 12px 26px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #F8FAFC;
+      z-index: 900;
+      background: transparent;
+      user-select: none;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    /* Internal Phone App Screen & Body */
+    .phone-screen {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: var(--app-bg);
+      padding: 10px 18px 85px;
+      scrollbar-width: none;
+    }
+    .phone-screen::-webkit-scrollbar { display: none; }
+
+    /* App Internal Header */
+    .app-brand-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-top: 6px;
+    }
+    .brand-logo-text {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #38BDF8 0%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-icon-head {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--app-card);
+      border: 1px solid var(--border-subtle);
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Screen Tab Views */
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.25s ease forwards;
+    }
+    .tab-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* App Native UI Cards */
+    .app-card {
+      background: var(--app-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .app-card-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #F8FAFC;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    /* Gauge inside Phone */
+    .app-gauge-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 0 12px;
+      position: relative;
+    }
+    .app-gauge-canvas {
+      width: 200px;
+      height: 120px;
+    }
+    .app-score-val {
+      position: absolute;
+      bottom: 16px;
+      text-align: center;
+    }
+    .app-score-num {
+      font-family: var(--font-mono);
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .app-verdict-tag {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    /* Mobile Question Blocks */
+    .m-q-block {
+      background: var(--app-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .m-q-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #E2E8F0;
+      margin-bottom: 8px;
+    }
+    .m-pills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .m-pill-btn {
+      background: #090E1A;
+      border: 1px solid var(--border-subtle);
+      color: #94A3B8;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .m-pill-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: #38BDF8;
+      color: #38BDF8;
+    }
+
+    /* Sliders inside Phone */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 5px;
+      border-radius: 5px;
+      background: #1E293B;
+      outline: none;
+      margin: 6px 0;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #38BDF8;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+    }
+
+    /* The Red Money Impact Banner */
+    .app-money-shock {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .m-shock-num {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 900;
+      color: #EF4444;
+      line-height: 1.1;
+      margin: 4px 0 6px;
+    }
+
+    /* Stacked Amortization Bar */
+    .m-amort-bar {
+      display: flex;
+      height: 10px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 10px 0;
+      background: #1E293B;
+    }
+    .m-bar-p { background: #10B981; }
+    .m-bar-int { background: #38BDF8; }
+    .m-bar-tax { background: #EF4444; }
+
+    /* New Module 1 & 2: FOIR Underwriting & Counterfactual Cards */
+    .m-foir-meter-wrap {
+      position: relative;
+      margin: 12px 0 8px;
+    }
+    .m-foir-bar-bg {
+      height: 12px;
+      background: #1E293B;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .m-foir-bar-fill {
+      height: 100%;
+      border-radius: 8px;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    .m-foir-cap-marker {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 800;
+      color: #EF4444;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .m-foir-cap-marker::after {
+      content: '';
+      width: 2px;
+      height: 16px;
+      background: #EF4444;
+      margin-top: 2px;
+    }
+    .m-action-card {
+      background: #090E1A;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .m-action-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .m-action-info {
+      flex: 1;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .btn-apply-action {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid #38BDF8;
+      color: #38BDF8;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-apply-action:hover {
+      background: #38BDF8;
+      color: #040711;
+    }
+
+    /* New Module 3: Statement Date vs Due Date Timeline */
+    .m-timeline-flow {
+      background: #090E1A;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+    .m-timeline-step {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .m-timeline-step:last-child { margin-bottom: 0; }
+    .m-timeline-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 24px;
+      bottom: -8px;
+      width: 2px;
+      background: #1E293B;
+    }
+    .m-step-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .m-step-content {
+      flex: 1;
+      font-size: 11px;
+      line-height: 1.4;
+      color: #CBD5E1;
+    }
+
+    /* New Module 4: Bank Negotiation Dossier */
+    .m-dossier-textarea {
+      width: 100%;
+      height: 140px;
+      background: #060913;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: #D8B4FE;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 10px;
+      resize: none;
+      line-height: 1.5;
+      margin: 8px 0;
+    }
+
+    /* Bottom Native App Navigation Dock */
+    .phone-nav-dock {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 10px 14px;
+      z-index: 950;
+      user-select: none;
+    }
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      color: #64748B;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      flex: 1;
+    }
+    .nav-tab-btn svg {
+      transition: transform 0.15s;
+    }
+    .nav-tab-btn.active {
+      color: #38BDF8;
+    }
+    .nav-tab-btn.active svg {
+      transform: translateY(-2px);
+    }
+    .nav-tab-btn.active-quant {
+      color: #C084FC !important;
+    }
+
+    /* Phone Bottom Swipe Bar */
+    .phone-home-indicator {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 4px;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    /* Modal for LinkedIn Sharing */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-content {
+      background: var(--app-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      max-width: 550px;
+      width: 100%;
+      padding: 24px;
+      position: relative;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Print / PDF Export Styling */
+    @media print {
+      body {
+        background: #060913 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .stage-sidebar, .phone-nav-dock, .phone-home-indicator, .phone-top-island-wrap, .modal-overlay, .btn-apply-action {
+        display: none !important;
+      }
+      .showcase-stage {
+        display: block !important;
+        padding: 0 !important;
+      }
+      .phone-simulator {
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+      }
+      .phone-screen {
+        height: auto !important;
+        overflow: visible !important;
+      }
+      .tab-view {
+        display: block !important;
+        margin-bottom: 24px;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Showcase Stage (Desktop simulator stage) -->
+  <div class="showcase-stage">
+
+    <!-- Left Column: Desktop Context & Quick Scenarios -->
+    <div class="stage-sidebar">
+      <div>
+        <div class="badge-pill">
+          <div class="pulse-dot"></div>
+          <span>Interactive Mobile App Simulator</span>
+        </div>
+      </div>
+
+      <h1 class="sidebar-title">CreditShield Mobile Experience</h1>
+      <p class="sidebar-desc">
+        Experience CreditShield exactly as users see it on their smartphones. Reverse-engineer your credit bureau score, expose the bank's secret interest markup, and run multi-card rebalancing directly in the live mobile cockpit.
+      </p>
+
+      <!-- Quick 1-Click Scenario Buttons -->
+      <div class="scenario-card">
+        <div class="scenario-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Test Quick Scenarios on the Phone:
+        </div>
+        <div class="scenario-btn-list">
+          <button class="btn-scenario" onclick="loadScenario('overused')">
+            <span>⚠️ Maxed-Out Single Card (85%)</span>
+            <span class="tag" style="color:#F87171;">718 Score</span>
+          </button>
+          <button class="btn-scenario" onclick="loadScenario('delinquent')">
+            <span>🔴 1 Missed Payment Delay</span>
+            <span class="tag" style="color:#F59E0B;">645 Score</span>
+          </button>
+          <button class="btn-scenario" onclick="loadScenario('superprime')">
+            <span>🟢 Perfect Super Prime Profile</span>
+            <span class="tag" style="color:#34D399;">812 Score</span>
+          </button>
+          <button class="btn-scenario" onclick="loadScenario('foir_cliff')">
+            <span>🛑 FOIR 54% Rejection Cliff</span>
+            <span class="tag" style="color:#EF4444;">Hard Reject</span>
+          </button>
+          <button class="btn-scenario" onclick="loadScenario('negotiate')">
+            <span>📄 Generate Bank Dossier</span>
+            <span class="tag" style="color:#A855F7;">8.40% Target</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Creator Information & Direct Actions -->
+      <div class="recruiter-desk-card">
+        <div class="creator-name">Vivek Kumar</div>
+        <div class="creator-role">M.Sc. Analytics | Tata Institute of Social Sciences (TISS), Mumbai</div>
+        <div style="font-size: 13px; color: #CBD5E1; margin-bottom: 14px; line-height: 1.5;">
+          Built with calibrated Basel II/III Logistic Scorecard formulations (<a href="https://github.com/Wewake257/Bank-Analytics-Portfolio" target="_blank" style="color:#38BDF8; font-weight:700;">credit_risk_pd_model.py</a>). Seeking Data Analytics & ML Internships.
+        </div>
+        <div class="cta-btn-row">
+          <a href="https://github.com/Wewake257/Bank-Analytics-Portfolio" target="_blank" class="btn-cta">
+            GitHub Source
+          </a>
+          <a href="https://linkedin.com/in/vivek-kumar-analytics" target="_blank" class="btn-cta">
+            LinkedIn
+          </a>
+          <button class="btn-cta btn-cta-primary" onclick="openShareModal()">
+            Share on LinkedIn
+          </button>
+        </div>
+        <button class="btn-cta" onclick="window.print()" style="margin-top: 8px; width: 100%; border-color: #38BDF8; color: #38BDF8; font-weight: 700;">
+          🖨️ Export Verified Credit Audit (PDF)
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: The Interactive Smartphone Device Frame -->
+    <div class="phone-simulator" id="smartphone-frame">
+
+      <!-- Dynamic Island (Top camera & sensor pill) -->
+      <div class="phone-top-island-wrap">
+        <div class="dynamic-island" onclick="switchPhoneTab('quant')" title="Tap to open Recruiter & Quant Mode">
+          <div class="island-cam"></div>
+          <span style="font-size: 10px; font-weight: 800; color: #38BDF8;">CreditShield</span>
+          <div class="island-sensor"></div>
+        </div>
+      </div>
+
+      <!-- Smartphone Status Bar -->
+      <div class="phone-status-bar">
+        <span id="phone-clock">10:42</span>
+        <div class="status-icons">
+          <span>5G</span>
+          <span>􀙇</span>
+          <span>98%</span>
+        </div>
+      </div>
+
+      <!-- Inside Phone App Screen (Scrollable) -->
+      <div class="phone-screen" id="app-screen">
+
+        <!-- Header inside App -->
+        <div class="app-brand-bar">
+          <div class="brand-logo-text">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>CreditShield</span>
+          </div>
+          <button class="btn-icon-head" onclick="openShareModal()" title="Share">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </button>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 1: CIBIL SCORE & 5 HUMAN QUESTIONS         -->
+        <!-- ============================================== -->
+        <div class="tab-view active" id="tab-score-view">
+
+          <!-- Circular Speedometer Gauge -->
+          <div class="app-card" style="text-align: center; padding: 14px 10px 10px;">
+            <div class="app-gauge-wrap">
+              <canvas id="gaugeCanvas" class="app-gauge-canvas" width="200" height="120"></canvas>
+              <div class="app-score-val">
+                <div class="app-score-num" id="phone-score-num" style="color: #F59E0B;">718</div>
+                <div style="font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">
+                  CIBIL Equivalent (300-900)
+                </div>
+              </div>
+            </div>
+            <div class="app-verdict-tag" id="phone-verdict-tag" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+              Near Prime Tier • Banks add +1.6% Interest Markup
+            </div>
+          </div>
+
+          <!-- 5 Plain English Questions -->
+          <div class="m-q-block">
+            <div class="m-q-head">
+              <span>1. Credit Card Spend This Month</span>
+              <span style="font-family: var(--font-mono); color: #38BDF8;" id="m-lbl-spend">₹42,000 (42%)</span>
+            </div>
+            <input type="range" id="m-slider-spend" min="0" max="100000" step="2000" value="42000" oninput="onPhoneInputsChanged()" />
+            <div style="font-size: 10px; color: var(--text-muted);">Safe threshold is under 30% of card limit.</div>
+          </div>
+
+          <div class="m-q-block">
+            <div class="m-q-head">
+              <span>2. Missed Bill Payments?</span>
+            </div>
+            <div class="m-pills-grid">
+              <button class="m-pill-btn active" onclick="setMRepay('never', this)">🟢 Never</button>
+              <button class="m-pill-btn" onclick="setMRepay('once', this)">🟡 Just Once</button>
+              <button class="m-pill-btn" onclick="setMRepay('few', this)">🟠 2-3 Times</button>
+              <button class="m-pill-btn" onclick="setMRepay('frequent', this)">🔴 Frequent</button>
+            </div>
+          </div>
+
+          <div class="m-q-block">
+            <div class="m-q-head">
+              <span>3. Age of Oldest Credit Card/Loan</span>
+            </div>
+            <div class="m-pills-grid">
+              <button class="m-pill-btn" onclick="setMVintage(0.8, this)">&lt; 1 Year</button>
+              <button class="m-pill-btn" onclick="setMVintage(2.5, this)">1 – 3 Yrs</button>
+              <button class="m-pill-btn active" onclick="setMVintage(4.5, this)">4 – 6 Yrs</button>
+              <button class="m-pill-btn" onclick="setMVintage(10, this)">7+ Years</button>
+            </div>
+          </div>
+
+          <div class="m-q-block">
+            <div class="m-q-head">
+              <span>4. Recent Loan/Card Applications</span>
+            </div>
+            <div class="m-pills-grid">
+              <button class="m-pill-btn" onclick="setMInq(0, this)">0 (None)</button>
+              <button class="m-pill-btn" onclick="setMInq(1, this)">1 Only</button>
+              <button class="m-pill-btn active" onclick="setMInq(3, this)">2 – 3 Apps</button>
+              <button class="m-pill-btn" onclick="setMInq(6, this)">4+ Apps</button>
+            </div>
+          </div>
+
+          <div class="m-q-block">
+            <div class="m-q-head">
+              <span>5. Personal Loans / BNPL EMIs</span>
+            </div>
+            <div class="m-pills-grid">
+              <button class="m-pill-btn" onclick="setMUnsec(0, this)">None</button>
+              <button class="m-pill-btn active" onclick="setMUnsec(2, this)">1 – 2 EMIs</button>
+              <button class="m-pill-btn" onclick="setMUnsec(4, this)">3+ EMIs</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: ADVANCED LOAN EMI & PREPAYMENT          -->
+        <!-- ============================================== -->
+        <div class="tab-view" id="tab-emi-view">
+
+          <!-- Money Shock Box -->
+          <div class="app-money-shock">
+            <div style="font-size: 11px; font-weight: 800; color: #F87171; text-transform: uppercase;">
+              ⚠️ Lifetime Bank Interest Markup
+            </div>
+            <div class="m-shock-num" id="m-tax-amount">₹11,48,240 Extra</div>
+            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.4;" id="m-tax-desc">
+              Your score charges you <strong>9.95%</strong> instead of the prime <strong>8.35%</strong> rate. You pay <strong>₹4,784 extra every month</strong>.
+            </div>
+          </div>
+
+          <!-- Category Presets inside Mobile -->
+          <div style="display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px;">
+            <button class="m-pill-btn active" id="m-preset-home" onclick="setMLoanPreset('home')">🏠 Home (50L)</button>
+            <button class="m-pill-btn" id="m-preset-auto" onclick="setMLoanPreset('auto')">🚗 Car (12L)</button>
+            <button class="m-pill-btn" id="m-preset-personal" onclick="setMLoanPreset('personal')">👤 Personal (5L)</button>
+            <button class="m-pill-btn" id="m-preset-edu" onclick="setMLoanPreset('edu')">🎓 Edu (20L)</button>
+          </div>
+
+          <!-- Controls: Principal & Tenure -->
+          <div class="app-card">
+            <div class="m-q-head">
+              <span>Loan Principal</span>
+              <span style="font-family: var(--font-mono); color: #38BDF8;" id="m-lbl-principal">₹50,00,000</span>
+            </div>
+            <input type="range" id="m-slider-principal" min="100000" max="15000000" step="50000" value="5000000" oninput="onMEMISlidersChanged()" />
+
+            <div class="m-q-head" style="margin-top: 10px;">
+              <span>Tenure</span>
+              <span style="font-family: var(--font-mono); color: #38BDF8;" id="m-lbl-tenure">20 Years</span>
+            </div>
+            <input type="range" id="m-slider-tenure" min="1" max="30" step="1" value="20" oninput="onMEMISlidersChanged()" />
+
+            <div class="m-q-head" style="margin-top: 10px;">
+              <span>Base Prime Rate (790+ CIBIL)</span>
+              <span style="font-family: var(--font-mono); color: #38BDF8;" id="m-lbl-rate">8.35%</span>
+            </div>
+            <input type="range" id="m-slider-rate" min="7.0" max="16.0" step="0.05" value="8.35" oninput="onMEMISlidersChanged()" />
+          </div>
+
+          <!-- Side-by-side Monthly Comparison -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+            <div style="background: var(--app-card); padding: 12px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+              <div style="font-size: 10px; color: #10B981; font-weight: 700; text-transform: uppercase;">Best Prime EMI</div>
+              <div style="font-family: var(--font-mono); font-size: 16px; font-weight: 800; color: #10B981;" id="m-val-prime-emi">₹42,918/m</div>
+            </div>
+            <div style="background: var(--app-card); padding: 12px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+              <div style="font-size: 10px; color: #EF4444; font-weight: 700; text-transform: uppercase;">Your Quoted EMI</div>
+              <div style="font-family: var(--font-mono); font-size: 16px; font-weight: 800; color: #EF4444;" id="m-val-user-emi">₹47,702/m</div>
+            </div>
+          </div>
+
+          <!-- Stacked Amortization Bar inside Mobile -->
+          <div class="app-card">
+            <div style="font-size: 12px; font-weight: 700; display: flex; justify-content: space-between;">
+              <span>Total Payment Outgo</span>
+              <span id="m-lbl-total-outgo" style="color:#38BDF8; font-family:var(--font-mono);">₹1,14,48,560</span>
+            </div>
+            <div class="m-amort-bar">
+              <div class="m-bar-p" id="m-bar-p" style="width: 43.7%;"></div>
+              <div class="m-bar-int" id="m-bar-int" style="width: 46.3%;"></div>
+              <div class="m-bar-tax" id="m-bar-tax" style="width: 10.0%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted);">
+              <span>🟢 Principal: <strong id="m-txt-p" style="color:#fff;">43.7%</strong></span>
+              <span>🔵 Interest: <strong id="m-txt-int" style="color:#fff;">46.3%</strong></span>
+              <span>🔴 Tax: <strong id="m-txt-tax" style="color:#F87171;">10.0%</strong></span>
+            </div>
+          </div>
+
+          <!-- Prepayment Simulator inside Mobile -->
+          <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 14px; padding: 14px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #34D399;">
+              <span>⚡ Prepayment Arbitrage</span>
+              <span id="m-lbl-prepay-val">+₹3,000 / mo</span>
+            </div>
+            <input type="range" id="m-slider-prepay" min="0" max="25000" step="500" value="3000" oninput="onMPrepayChanged()" />
+            <div style="font-size: 11px; color: #E2E8F0; line-height: 1.4; margin-top: 6px;" id="m-txt-prepay-outcome">
+              💡 Prepay ₹3,000/mo extra: Cut <strong>4.8 Years</strong> off your loan and save <strong>₹14,20,500 in interest</strong>!
+            </div>
+          </div>
+
+          <!-- RBI Floating Repo Rate Stress-Tester -->
+          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 14px; padding: 14px; margin-top: 12px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #38BDF8;">
+              <span>📉 RBI Repo Rate Stress-Test (Floating EBLR)</span>
+              <span id="m-lbl-repo-shock" style="font-family:var(--font-mono);">0.0% Base</span>
+            </div>
+            <div style="display: flex; gap: 4px; margin: 8px 0;">
+              <button class="m-pill-btn active" id="m-repo-0" onclick="setRepoShock(0, this)">0.0% Base</button>
+              <button class="m-pill-btn" id="m-repo-50" onclick="setRepoShock(0.5, this)">+0.5% Hike</button>
+              <button class="m-pill-btn" id="m-repo-100" onclick="setRepoShock(1.0, this)">+1.0% Hike</button>
+              <button class="m-pill-btn" id="m-repo-150" onclick="setRepoShock(1.5, this)">+1.5% Shock</button>
+            </div>
+            <div style="font-size: 11px; color: #E2E8F0; line-height: 1.4;" id="m-txt-repo-outcome">
+              💡 Indian banks usually keep your EMI fixed and secretly stretch your tenure when RBI hikes repo rates!
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: REGULATORY FOIR & UNDERWRITING DECRYPTER-->
+        <!-- ============================================== -->
+        <div class="tab-view" id="tab-underwrite-view">
+          
+          <!-- FOIR Meter Card -->
+          <div class="app-card">
+            <div class="app-card-title">
+              <span>Autonomous Underwriting Decrypter</span>
+              <span id="m-foir-status-pill" style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; background:rgba(239,68,68,0.2); color:#F87171;">
+                Hard Rejection Risk
+              </span>
+            </div>
+            
+            <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">
+              Banks use adaptive FOIR ceilings (42% to 55%) to auto-reject applicants regardless of high CIBIL scores!
+            </p>
+
+            <!-- Employer Category Risk Selector -->
+            <div style="margin-bottom: 12px;">
+              <div style="font-size: 11px; font-weight: 700; color: #CBD5E1; margin-bottom: 6px;">
+                Employer Risk Category
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <button class="m-pill-btn active" id="m-cat-corp" onclick="setEmployerCat('corp', this)">🏢 Private Corp</button>
+                <button class="m-pill-btn" id="m-cat-govt" onclick="setEmployerCat('govt', this)">🏛️ Govt / CAT-A</button>
+                <button class="m-pill-btn" id="m-cat-self" onclick="setEmployerCat('self', this)">📈 Self-Employed</button>
+              </div>
+            </div>
+
+            <div class="m-q-head">
+              <span>Monthly In-Hand Salary</span>
+              <span style="font-family:var(--font-mono); color:#38BDF8;" id="m-lbl-salary">₹85,000</span>
+            </div>
+            <input type="range" id="m-slider-salary" min="25000" max="300000" step="5000" value="85000" oninput="onUnderwriteChanged()" />
+
+            <div class="m-q-head" style="margin-top:8px;">
+              <span>Existing Monthly EMIs</span>
+              <span style="font-family:var(--font-mono); color:#EF4444;" id="m-lbl-existing-emi">₹34,000</span>
+            </div>
+            <input type="range" id="m-slider-existing-emi" min="0" max="100000" step="2000" value="34000" oninput="onUnderwriteChanged()" />
+
+            <!-- FOIR Progress Bar with Adaptive Cap Marker -->
+            <div style="margin-top:16px;">
+              <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700;">
+                <span>Total FOIR Debt Ratio:</span>
+                <span id="m-val-foir-pct" style="color:#EF4444; font-family:var(--font-mono);">54.2%</span>
+              </div>
+              <div class="m-foir-meter-wrap">
+                <div class="m-foir-bar-bg">
+                  <div class="m-foir-bar-fill" id="m-foir-fill" style="width: 54.2%; background: #EF4444;"></div>
+                </div>
+                <div class="m-foir-cap-marker" id="m-foir-cap-marker">
+                  <span id="m-foir-cap-text">50% Statutory Cap</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Monthly Residual Income (Living Buffer) -->
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 10px; padding: 10px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Residual Living Cash Buffer</div>
+                <div style="font-size: 11px; color: #CBD5E1;" id="m-residual-subtext">Remaining take-home after all debt</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 800; color: #34D399;" id="m-val-residual">₹38,930/mo</div>
+                <div style="font-size: 9px; color: #34D399; font-weight: 700;" id="m-residual-badge">Safe Living Buffer</div>
+              </div>
+            </div>
+
+            <!-- Underwriting Decision Verdict Box -->
+            <div style="background:#090E1A; border:1px solid var(--border-subtle); border-radius:10px; padding:10px; margin-top:14px; font-size:11px; line-height:1.4;" id="m-underwrite-verdict-box">
+              ⚠️ <strong>Auto-Rejection Warning:</strong> Your total monthly debt obligations consume <strong>54.2%</strong> of your salary. The bank's risk policy hard-caps approval at 50%.
+            </div>
+
+            <!-- Max Loan Capacity -->
+            <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.25); border-radius:10px; padding:10px; margin-top:8px;">
+              <span style="font-size:11px; color:#CBD5E1;">Max Sanctionable Loan:</span>
+              <strong style="font-family:var(--font-mono); color:#38BDF8; font-size:14px;" id="m-val-max-loan">₹10.5 Lakhs</strong>
+            </div>
+          </div>
+
+          <!-- Counterfactual "What-If" Reversal Engine -->
+          <div class="app-card">
+            <div class="app-card-title">
+              <span>⚡ Counterfactual Reversal Actions</span>
+              <span style="font-size:10px; color:#A855F7; font-weight:800;">Explainable AI</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">
+              Statistically calculated actions to break through the 50% FOIR wall and flip rejection into approval:
+            </p>
+
+            <!-- Action 1 -->
+            <div class="m-action-card">
+              <div class="m-action-info">
+                <div style="font-weight:700; color:#fff;">Move 1: Eliminate ₹6,500 Phone/Car EMI</div>
+                <div style="color:#34D399; font-size:10px;">Drops FOIR to 46.5% • Approval odds: 34% → 86%</div>
+              </div>
+              <button class="btn-apply-action" onclick="applyCounterfactual(1)">Apply Move</button>
+            </div>
+
+            <!-- Action 2 -->
+            <div class="m-action-card">
+              <div class="m-action-info">
+                <div style="font-weight:700; color:#fff;">Move 2: Add Co-Applicant (+₹25,000/mo)</div>
+                <div style="color:#38BDF8; font-size:10px;">Household ₹1,10,000 drops FOIR to 41.8% • Pre-Approved</div>
+              </div>
+              <button class="btn-apply-action" onclick="applyCounterfactual(2)">Apply Move</button>
+            </div>
+
+            <!-- Action 3 -->
+            <div class="m-action-card">
+              <div class="m-action-info">
+                <div style="font-weight:700; color:#fff;">Move 3: Stretch Tenure by +5 Years</div>
+                <div style="color:#F59E0B; font-size:10px;">Reduces new EMI by ₹4,200 • FOIR drops to 49.2%</div>
+              </div>
+              <button class="btn-apply-action" onclick="applyCounterfactual(3)">Apply Move</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 4: HACKS (REBALANCE, STATEMENT DATE, DOSSIER)-->
+        <!-- ============================================== -->
+        <div class="tab-view" id="tab-hacks-view">
+
+          <!-- Hack 1: Statement Date vs Due Date -->
+          <div class="app-card" style="border-color: rgba(56, 189, 248, 0.35);">
+            <div class="app-card-title">
+              <span>🗓️ Statement Date vs Due Date Hack</span>
+              <span style="font-size:10px; font-weight:800; color:#38BDF8;">The Secret Timing</span>
+            </div>
+            <p style="font-size:11px; color:#CBD5E1; line-height:1.4; margin-bottom:10px;">
+              Over 90% of cardholders pay on the <strong>Due Date</strong>, but CIBIL pulls your balance on your <strong>Statement Generation Date</strong> (15-20 days earlier)!
+            </p>
+
+            <div class="m-timeline-flow">
+              <div class="m-timeline-step">
+                <div class="m-step-circle" style="background:#EF4444; color:#fff;">1</div>
+                <div class="m-step-content">
+                  <strong style="color:#fff;">Day 8 (The Trap):</strong> You spent ₹85,000. Balance is 85% of limit.
+                </div>
+              </div>
+              <div class="m-timeline-step">
+                <div class="m-step-circle" style="background:#38BDF8; color:#040711;">2</div>
+                <div class="m-step-content">
+                  <strong style="color:#38BDF8;">Day 10 (Statement Date):</strong> CIBIL takes a snapshot! If unpaid, they record an 85% critical over-utilization penalty.
+                </div>
+              </div>
+              <div class="m-timeline-step">
+                <div class="m-step-circle" style="background:#10B981; color:#fff;">3</div>
+                <div class="m-step-content">
+                  <strong style="color:#34D399;">The Hack:</strong> Pay ₹60,000 on Day 8 (2 days before statement). Statement generates at only 25% utilization $\rightarrow$ <strong>+35 points bureau surge!</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hack 2: 30-Day Multi-Card Rebalancer -->
+          <div class="app-card">
+            <div class="app-card-title">
+              <span>⚡ Multi-Card Rebalancing Optimizer</span>
+              <span style="font-size:10px; font-weight:800; color:#10B981;">Spent ₹0 Extra</span>
+            </div>
+            <div style="display:flex; gap:6px; margin-bottom:8px;">
+              <div style="flex:1;">
+                <label style="font-size:10px; color:var(--text-muted);">Card 1 (HDFC 85%)</label>
+                <input type="number" id="m-c1-bal" value="85000" style="width:100%; background:#090E1A; border:1px solid var(--border-subtle); color:#fff; padding:6px; border-radius:6px; font-size:12px;" onchange="runMRebalancer()" />
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:10px; color:var(--text-muted);">Card 2 (ICICI 5%)</label>
+                <input type="number" id="m-c2-bal" value="8000" style="width:100%; background:#090E1A; border:1px solid var(--border-subtle); color:#fff; padding:6px; border-radius:6px; font-size:12px;" onchange="runMRebalancer()" />
+              </div>
+            </div>
+            <button onclick="runMRebalancer()" style="width:100%; background:linear-gradient(135deg, #6366F1, #4F46E5); color:#fff; border:none; padding:10px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer;">
+              Rebalance Limits (Gain +42 Points)
+            </button>
+            <div style="font-size:11px; color:#34D399; margin-top:8px;" id="m-txt-rebal-outcome">
+              ✓ Shifts ₹60k to Card 2. All cards drop under 28% utilization without extra cash.
+            </div>
+            <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25); border-radius: 8px; padding: 8px 10px; margin-top: 8px; font-size: 10px; line-height: 1.4; color: #CBD5E1;">
+              💡 <strong>Real-World Fee vs Net ROI:</strong> Organic spend shift = <strong>₹0 Fee</strong>. Official card balance transfer (1.2% fee) = <strong>₹648</strong>. Spending ₹648 to gain +42 points and save ₹11.5L on a Home Loan delivers an <strong>1,770x Net Return on Investment (ROI)</strong>.
+            </div>
+          </div>
+
+          <!-- Hack 3: Bank Negotiation Dossier Generator -->
+          <div class="app-card" style="border-color: rgba(168, 85, 247, 0.35);">
+            <div class="app-card-title">
+              <span>📄 Bank Rate Negotiation Dossier</span>
+              <span style="font-size:10px; font-weight:800; color:#D8B4FE;">1-Click Draft</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-muted);">
+              Automated formal letter to your loan officer with RBI repo rate spread leverage:
+            </p>
+            <textarea class="m-dossier-textarea" id="m-dossier-text" readonly></textarea>
+            <button onclick="copyDossierText()" style="width:100%; background:linear-gradient(135deg, #A855F7, #7E22CE); color:#fff; border:none; padding:10px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer;">
+              📋 Copy Negotiation Letter to Clipboard
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 5: RECRUITER & QUANT VIEW (MATHEMATICS)    -->
+        <!-- ============================================== -->
+        <div class="tab-view" id="tab-quant-view">
+          <div class="app-card" style="border-color: rgba(168, 85, 247, 0.4); background: #0B1120;">
+            <div style="font-size: 14px; font-weight: 800; color: #D8B4FE; margin-bottom: 8px;">
+              🧠 Basel II/III Logistic Scorecard Formulation
+            </div>
+            <p style="font-size: 11px; color: #CBD5E1; line-height: 1.5; margin-bottom: 8px;">
+              Raw Probability of Default (PD) mapped to calibrated credit scores ($\text{PDO}=20$, Base Odds 50:1 at Score 600):
+            </p>
+            <div style="background:#050811; border-left:3px solid #A855F7; padding:8px 10px; font-family:var(--font-mono); font-size:11px; color:#D8B4FE; border-radius:0 6px 6px 0; margin-bottom:10px;">
+              Score = Offset + Factor × ln(Odds)<br>
+              Factor = 20 / ln(2) = 28.8539<br>
+              WoE_i = ln(Good_rate / Bad_rate)
+            </div>
+            <div style="font-size: 11px; color: #94A3B8;">
+              Model Performance: <strong>0.887 ROC-AUC</strong>, <strong>KS = 0.442</strong> (Exceeds regulatory 0.40 threshold).
+            </div>
+          </div>
+
+          <div class="app-card">
+            <div style="font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 6px;">Vivek Kumar</div>
+            <div style="font-size: 11px; color: #38BDF8; margin-bottom: 10px;">TISS Mumbai (M.Sc. Analytics)</div>
+            <a href="https://github.com/Wewake257/Bank-Analytics-Portfolio" target="_blank" style="display:block; text-align:center; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#fff; padding:8px; border-radius:8px; font-size:11px; font-weight:700; text-decoration:none; margin-bottom:8px;">
+              View Python PD Engine on GitHub
+            </a>
+            <a href="mailto:m2025anl036@stud.tiss.ac.in" style="display:block; text-align:center; background:#10B981; color:#fff; padding:8px; border-radius:8px; font-size:11px; font-weight:700; text-decoration:none; margin-bottom:8px;">
+              Contact Vivek for Internship
+            </a>
+            <button onclick="window.print()" style="width:100%; background:linear-gradient(135deg, #38BDF8, #0284C7); color:#040711; border:none; padding:10px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer; margin-top:8px;">
+              🖨️ Print / Download 1-Page Credit Audit (PDF)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Native Bottom Navigation Dock -->
+      <nav class="phone-nav-dock">
+        <button class="nav-tab-btn active" id="btn-tab-score" onclick="switchPhoneTab('score')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Score</span>
+        </button>
+
+        <button class="nav-tab-btn" id="btn-tab-emi" onclick="switchPhoneTab('emi')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Loan EMI</span>
+        </button>
+
+        <button class="nav-tab-btn" id="btn-tab-underwrite" onclick="switchPhoneTab('underwrite')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Underwrite</span>
+        </button>
+
+        <button class="nav-tab-btn" id="btn-tab-hacks" onclick="switchPhoneTab('hacks')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span>Hacks</span>
+        </button>
+
+        <button class="nav-tab-btn" id="btn-tab-quant" onclick="switchPhoneTab('quant')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Quant</span>
+        </button>
+      </nav>
+
+      <!-- Smartphone Home Swipe Indicator Bar -->
+      <div class="phone-home-indicator"></div>
+
+    </div>
+
+  </div>
+
+  <!-- Share Modal -->
+  <div class="modal-overlay" id="share-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeShareModal()">✕</button>
+      <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 6px;">
+        Share CreditShield on LinkedIn
+      </h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+        Copy this post to share with hiring managers and your network:
+      </p>
+      <textarea id="share-box-text" style="width:100%; height:160px; background:#080D1A; border:1px solid var(--border-subtle); border-radius:8px; color:#E2E8F0; font-size:12px; padding:10px; resize:none;" readonly>🚀 Excited to launch CreditShield — an interactive mobile web app that exposes the hidden "Interest Tax" commercial banks charge on loans, and lets everyday borrowers optimize their credit score in 30 days!
+
+Try the interactive mobile app directly in your browser:
+🔗 App Link: [REPLACE_WITH_YOUR_LINK]
+📂 GitHub Model: https://github.com/Wewake257/Bank-Analytics-Portfolio
+
+Key Features:
+🔹 Simulated CIBIL Score (300 to 900) based on 5 everyday money levers
+🔹 Loan EMI & Prepayment Arbitrage Calculator (shave years off debt)
+🔹 Multi-Card Rebalancer: Gain +40 points without spending an extra rupee
+🔹 Recruiter & Quant Mode: Full Basel II/III Logistic Scorecard & WoE math
+
+Built by Vivek Kumar (M.Sc. Analytics, TISS Mumbai). Open for Data Analytics & Machine Learning Internships!
+
+#DataAnalytics #FinTech #Banking #CreditScore #TISS #DataScience #WebDevelopment</textarea>
+      
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:10px;">
+        <button class="btn-cta" onclick="closeShareModal()">Cancel</button>
+        <button class="btn-cta btn-cta-primary" onclick="copyShareText()">Copy Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    // State
+    let currentScoreTier = "Near Prime";
+    let mSpend = 42000;
+    let mRepay = 'never';
+    let mVintage = 4.5;
+    let mInq = 3;
+    let mUnsec = 2;
+
+    let mLoanPrincipal = 5000000;
+    let mLoanTenureYrs = 20;
+    let mBasePrimeRate = 8.35;
+    let mMonthlyPrepay = 3000;
+
+    const TIER_SPREADS = {
+      "Super Prime": 0.00,
+      "Prime": 0.40,
+      "Near Prime": 1.60,
+      "Subprime": 2.90,
+      "Distressed": 4.65
+    };
+
+    const PRESETS = {
+      home: { p: 5000000, t: 20, r: 8.35 },
+      auto: { p: 1200000, t: 5, r: 8.70 },
+      personal: { p: 500000, t: 3, r: 10.50 },
+      edu: { p: 2000000, t: 7, r: 9.15 }
+    };
+
+    // Live Digital Clock on Smartphone
+    function updateClock() {
+      const now = new Date();
+      let h = now.getHours();
+      let m = now.getMinutes();
+      h = h % 12 || 12;
+      m = m < 10 ? '0' + m : m;
+      document.getElementById('phone-clock').innerText = `${h}:${m}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Tab Switcher
+    function switchPhoneTab(tab) {
+      document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.classList.remove('active-quant');
+      });
+
+      if (tab === 'score') {
+        const v = document.getElementById('tab-score-view');
+        const b = document.getElementById('btn-tab-score');
+        if (v) v.classList.add('active');
+        if (b) b.classList.add('active');
+      } else if (tab === 'emi') {
+        const v = document.getElementById('tab-emi-view');
+        const b = document.getElementById('btn-tab-emi');
+        if (v) v.classList.add('active');
+        if (b) b.classList.add('active');
+      } else if (tab === 'underwrite') {
+        const v = document.getElementById('tab-underwrite-view');
+        const b = document.getElementById('btn-tab-underwrite');
+        if (v) v.classList.add('active');
+        if (b) b.classList.add('active');
+        onUnderwriteChanged();
+      } else if (tab === 'hacks') {
+        const v = document.getElementById('tab-hacks-view');
+        const b = document.getElementById('btn-tab-hacks');
+        if (v) v.classList.add('active');
+        if (b) b.classList.add('active');
+        updateDossier();
+      } else if (tab === 'quant') {
+        const v = document.getElementById('tab-quant-view');
+        const b = document.getElementById('btn-tab-quant');
+        if (v) v.classList.add('active');
+        if (b) {
+          b.classList.add('active');
+          b.classList.add('active-quant');
+        }
+      }
+    }
+
+    function formatINR(val) {
+      return '₹' + Math.round(val).toLocaleString('en-IN');
+    }
+
+    function calculateEMI(principal, annualRate, tenureMonths) {
+      if (annualRate === 0) return principal / tenureMonths;
+      const r = (annualRate / 100) / 12;
+      return (principal * r * Math.pow(1 + r, tenureMonths)) / (Math.pow(1 + r, tenureMonths) - 1);
+    }
+
+    function drawGauge(score, tierColor) {
+      const canvas = document.getElementById('gaugeCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+      const cx = w / 2;
+      const cy = h - 8;
+      const r = 78;
+
+      // Track
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, Math.PI, 2 * Math.PI, false);
+      ctx.lineWidth = 12;
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Active
+      const pct = Math.min(1, Math.max(0, (score - 300) / 600));
+      const endAngle = Math.PI + (pct * Math.PI);
+
+      if (pct > 0.01) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, Math.PI, endAngle, false);
+        ctx.lineWidth = 12;
+        ctx.strokeStyle = tierColor;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }
+    }
+
+    function setMRepay(val, btn) {
+      mRepay = val;
+      btn.parentElement.querySelectorAll('.m-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onPhoneInputsChanged();
+    }
+    function setMVintage(yrs, btn) {
+      mVintage = yrs;
+      btn.parentElement.querySelectorAll('.m-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onPhoneInputsChanged();
+    }
+    function setMInq(inq, btn) {
+      mInq = inq;
+      btn.parentElement.querySelectorAll('.m-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onPhoneInputsChanged();
+    }
+    function setMUnsec(unsec, btn) {
+      mUnsec = unsec;
+      btn.parentElement.querySelectorAll('.m-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onPhoneInputsChanged();
+    }
+
+    function onPhoneInputsChanged() {
+      mSpend = parseFloat(document.getElementById('m-slider-spend').value);
+      const utilPct = (mSpend / 100000) * 100;
+      document.getElementById('m-lbl-spend').innerText = `${formatINR(mSpend)} (${utilPct.toFixed(0)}%)`;
+
+      // Scorecard points
+      let pUtil = 25;
+      if (utilPct <= 10) pUtil = 260;
+      else if (utilPct <= 25) pUtil = 235;
+      else if (utilPct <= 35) pUtil = 195;
+      else if (utilPct <= 50) pUtil = 140;
+      else if (utilPct <= 75) pUtil = 80;
+
+      let pPay = 20;
+      if (mRepay === 'never') pPay = 280;
+      else if (mRepay === 'once') pPay = 230;
+      else if (mRepay === 'few') pPay = 140;
+      else pPay = 50;
+
+      let pVin = 20;
+      if (mVintage >= 7) pVin = 140;
+      else if (mVintage >= 4) pVin = 110;
+      else if (mVintage >= 1.5) pVin = 75;
+      else pVin = 30;
+
+      let pInq = 10;
+      if (mInq === 0) pInq = 110;
+      else if (mInq === 1) pInq = 95;
+      else if (mInq <= 3) pInq = 65;
+      else pInq = 30;
+
+      let pMix = 15;
+      if (mUnsec === 0) pMix = 110;
+      else if (mUnsec <= 2) pMix = 70;
+      else pMix = 35;
+
+      const totalScore = Math.min(900, Math.max(300, pUtil + pPay + pVin + pInq + pMix));
+
+      let tier = "Subprime";
+      let tierColor = "#F97316";
+      let tagText = "Subprime • High Rejection Risk";
+
+      if (totalScore >= 790) {
+        tier = "Super Prime";
+        tierColor = "#10B981";
+        tagText = "Super Prime • Zero Risk Markup";
+      } else if (totalScore >= 750) {
+        tier = "Prime";
+        tierColor = "#38BDF8";
+        tagText = "Prime • Pre-approved for Loans";
+      } else if (totalScore >= 700) {
+        tier = "Near Prime";
+        tierColor = "#F59E0B";
+        tagText = "Near Prime • +1.6% Interest Markup";
+      } else if (totalScore >= 620) {
+        tier = "Subprime";
+        tierColor = "#F97316";
+        tagText = "Subprime • +2.9% Interest Penalty";
+      } else {
+        tier = "Distressed";
+        tierColor = "#EF4444";
+        tagText = "Distressed • Critical Default Flag";
+      }
+
+      currentScoreTier = tier;
+      document.getElementById('phone-score-num').innerText = totalScore;
+      document.getElementById('phone-score-num').style.color = tierColor;
+
+      const tagEl = document.getElementById('phone-verdict-tag');
+      tagEl.innerText = tagText;
+      tagEl.style.color = tierColor;
+      tagEl.style.background = tierColor + '20';
+
+      drawGauge(totalScore, tierColor);
+      recalculateMEMI();
+    }
+
+    let mUserCustomizedLoan = false;
+
+    function setMLoanPreset(type) {
+      mUserCustomizedLoan = true;
+      document.querySelectorAll('#tab-emi-view .m-pill-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById('m-preset-' + type);
+      if (btn) btn.classList.add('active');
+
+      const p = PRESETS[type];
+      mLoanPrincipal = p.p;
+      mLoanTenureYrs = p.t;
+      mBasePrimeRate = p.r;
+
+      document.getElementById('m-slider-principal').value = p.p;
+      document.getElementById('m-slider-tenure').value = p.t;
+      document.getElementById('m-slider-rate').value = p.r;
+
+      recalculateMEMI();
+    }
+
+    function onMEMISlidersChanged() {
+      mUserCustomizedLoan = true;
+      mLoanPrincipal = parseFloat(document.getElementById('m-slider-principal').value);
+      mLoanTenureYrs = parseInt(document.getElementById('m-slider-tenure').value);
+      mBasePrimeRate = parseFloat(document.getElementById('m-slider-rate').value);
+
+      recalculateMEMI();
+    }
+
+    function recalculateMEMI() {
+      document.getElementById('m-lbl-principal').innerText = formatINR(mLoanPrincipal);
+      document.getElementById('m-lbl-tenure').innerText = `${mLoanTenureYrs} Years`;
+      document.getElementById('m-lbl-rate').innerText = `${mBasePrimeRate.toFixed(2)}%`;
+
+      const months = mLoanTenureYrs * 12;
+      const spread = TIER_SPREADS[currentScoreTier] || 1.60;
+      const userRate = mBasePrimeRate + spread;
+
+      const primeEMI = calculateEMI(mLoanPrincipal, mBasePrimeRate, months);
+      const userEMI = calculateEMI(mLoanPrincipal, userRate, months);
+
+      // Keep proposed EMI in sync for underwrite view if customized by user
+      if (mUserCustomizedLoan) {
+        mProposedNewEMI = userEMI;
+      }
+
+      const totalPrimeInt = (primeEMI * months) - mLoanPrincipal;
+      const totalUserInt = (userEMI * months) - mLoanPrincipal;
+      const monthlyPenalty = Math.max(0, userEMI - primeEMI);
+      const lifetimePenalty = Math.max(0, totalUserInt - totalPrimeInt);
+      const totalOutgo = mLoanPrincipal + totalUserInt;
+
+      document.getElementById('m-tax-amount').innerText = formatINR(lifetimePenalty) + ' Extra';
+      document.getElementById('m-tax-desc').innerHTML = 
+        `Your score quotes <strong>${userRate.toFixed(2)}%</strong> instead of <strong>${mBasePrimeRate.toFixed(2)}%</strong>. You pay <strong>${formatINR(monthlyPenalty)} extra every month</strong>.`;
+
+      document.getElementById('m-val-prime-emi').innerText = `${formatINR(primeEMI)}/m`;
+      document.getElementById('m-val-user-emi').innerText = `${formatINR(userEMI)}/m`;
+
+      // Amortization bar
+      const pctP = (mLoanPrincipal / totalOutgo) * 100;
+      const pctInt = (totalPrimeInt / totalOutgo) * 100;
+      const pctTax = (lifetimePenalty / totalOutgo) * 100;
+
+      document.getElementById('m-bar-p').style.width = pctP.toFixed(1) + '%';
+      document.getElementById('m-bar-int').style.width = pctInt.toFixed(1) + '%';
+      document.getElementById('m-bar-tax').style.width = pctTax.toFixed(1) + '%';
+
+      document.getElementById('m-lbl-total-outgo').innerText = formatINR(totalOutgo);
+      document.getElementById('m-txt-p').innerText = pctP.toFixed(0) + '%';
+      document.getElementById('m-txt-int').innerText = pctInt.toFixed(0) + '%';
+      document.getElementById('m-txt-tax').innerText = pctTax.toFixed(0) + '%';
+
+      onMPrepayChanged();
+      onUnderwriteChanged();
+
+      // Floating Repo Stress Test Calculation
+      const repoOutcomeEl = document.getElementById('m-txt-repo-outcome');
+      if (repoOutcomeEl) {
+        if (mRepoShock === 0) {
+          repoOutcomeEl.innerText = "💡 Most Indian banks keep your EMI fixed and secretly stretch your tenure when RBI hikes repo rates!";
+        } else {
+          const stressRate = userRate + mRepoShock;
+          const rStress = (stressRate / 100) / 12;
+          if (mLoanPrincipal * rStress >= userEMI) {
+            repoOutcomeEl.innerHTML = `⚠️ <strong>Negative Amortization Warning:</strong> At +${mRepoShock.toFixed(1)}% hike, interest outgo exceeds monthly EMI! Debt grows indefinitely without prepayments.`;
+          } else {
+            const newMonths = -Math.log(1 - (mLoanPrincipal * rStress / userEMI)) / Math.log(1 + rStress);
+            const yearsAdded = Math.max(0, (newMonths - months) / 12);
+            const extraInt = Math.max(0, (userEMI * newMonths - mLoanPrincipal) - totalUserInt);
+            repoOutcomeEl.innerHTML = `⚠️ At +${mRepoShock.toFixed(1)}% hike: Keeping EMI at ${formatINR(userEMI)} secretly extends loan tenure by <strong>+${yearsAdded.toFixed(1)} Years</strong>, costing <strong>+${formatINR(extraInt)}</strong> in hidden interest!`;
+          }
+        }
+      }
+    }
+
+    let mRepoShock = 0;
+    let mEmployerCat = 'corp';
+
+    function setRepoShock(delta, btn) {
+      mRepoShock = delta;
+      document.querySelectorAll('#tab-emi-view [id^="m-repo-"]').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const lbl = document.getElementById('m-lbl-repo-shock');
+      if (lbl) lbl.innerText = delta === 0 ? '0.0% Base' : `+${delta.toFixed(1)}% Shock`;
+      recalculateMEMI();
+    }
+
+    function setEmployerCat(cat, btn) {
+      mEmployerCat = cat;
+      document.querySelectorAll('#tab-underwrite-view [id^="m-cat-"]').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const capTextEl = document.getElementById('m-foir-cap-text');
+      if (capTextEl) {
+        if (cat === 'govt') capTextEl.innerText = '55% Cap (Govt/CAT-A)';
+        else if (cat === 'self') capTextEl.innerText = '42% Cap (Self-Employed)';
+        else capTextEl.innerText = '50% Statutory Cap';
+      }
+      onUnderwriteChanged();
+    }
+
+    function onMPrepayChanged() {
+      mMonthlyPrepay = parseFloat(document.getElementById('m-slider-prepay').value) || 0;
+      document.getElementById('m-lbl-prepay-val').innerText = mMonthlyPrepay === 0 ? '₹0 Extra' : `+${formatINR(mMonthlyPrepay)} / mo`;
+
+      const months = mLoanTenureYrs * 12;
+      const spread = TIER_SPREADS[currentScoreTier] || 1.60;
+      const userRate = mBasePrimeRate + spread;
+      const monthlyRate = (userRate / 100) / 12;
+      const baseEMI = calculateEMI(mLoanPrincipal, userRate, months);
+      const baselineTotalInt = (baseEMI * months) - mLoanPrincipal;
+
+      if (mMonthlyPrepay === 0) {
+        document.getElementById('m-txt-prepay-outcome').innerText = "💡 Move the slider above to see how prepaying extra cuts tenure and saves interest.";
+        return;
+      }
+
+      let balance = mLoanPrincipal;
+      let monthCount = 0;
+      let totalInterest = 0;
+      const monthlyOutflow = baseEMI + mMonthlyPrepay;
+
+      while (balance > 0 && monthCount < months) {
+        monthCount++;
+        const intMonth = balance * monthlyRate;
+        totalInterest += intMonth;
+        const principalPaid = Math.min(balance, monthlyOutflow - intMonth);
+        balance -= principalPaid;
+        if (balance <= 0) break;
+      }
+
+      const monthsSaved = Math.max(0, months - monthCount);
+      const yearsSaved = (monthsSaved / 12).toFixed(1);
+      const intSaved = Math.max(0, baselineTotalInt - totalInterest);
+
+      document.getElementById('m-txt-prepay-outcome').innerHTML = 
+        `💡 Prepay ${formatINR(mMonthlyPrepay)}/mo: Cut <strong>${yearsSaved} Years</strong> and save <strong>${formatINR(intSaved)}</strong> in interest!`;
+    }
+
+    // ==========================================
+    // 4 NEW ENHANCEMENTS: UNDERWRITING & FOIR
+    // ==========================================
+    let mSalary = 85000;
+    let mExistingEMI = 34000;
+    let mProposedNewEMI = 12070;
+
+    function onUnderwriteChanged() {
+      const salSlider = document.getElementById('m-slider-salary');
+      const emiSlider = document.getElementById('m-slider-existing-emi');
+      if (salSlider) mSalary = parseFloat(salSlider.value) || 85000;
+      if (emiSlider) mExistingEMI = parseFloat(emiSlider.value) || 0;
+
+      const lblSal = document.getElementById('m-lbl-salary');
+      const lblEx = document.getElementById('m-lbl-existing-emi');
+      if (lblSal) lblSal.innerText = formatINR(mSalary);
+      if (lblEx) lblEx.innerText = formatINR(mExistingEMI);
+
+      const totalObligations = mExistingEMI + mProposedNewEMI;
+      const foirPct = mSalary > 0 ? (totalObligations / mSalary) * 100 : 100;
+
+      // Adaptive statutory cap based on employer risk
+      let foirCap = 50.0;
+      if (mEmployerCat === 'govt') foirCap = 55.0;
+      else if (mEmployerCat === 'self') foirCap = 42.0;
+
+      const foirVal = document.getElementById('m-val-foir-pct');
+      const foirFill = document.getElementById('m-foir-fill');
+      const statusPill = document.getElementById('m-foir-status-pill');
+      const verdictBox = document.getElementById('m-underwrite-verdict-box');
+
+      if (foirVal) foirVal.innerText = foirPct.toFixed(1) + '%';
+      if (foirFill) foirFill.style.width = Math.min(100, Math.max(0, foirPct)) + '%';
+
+      // Residual Living Buffer calculation
+      const residual = mSalary - totalObligations;
+      const resValEl = document.getElementById('m-val-residual');
+      const resBadgeEl = document.getElementById('m-residual-badge');
+
+      if (resValEl) resValEl.innerText = formatINR(residual) + '/mo';
+      if (residual >= 25000) {
+        if (resValEl) resValEl.style.color = '#34D399';
+        if (resBadgeEl) {
+          resBadgeEl.innerText = 'Safe Living Buffer';
+          resBadgeEl.style.color = '#34D399';
+        }
+      } else if (residual >= 15000) {
+        if (resValEl) resValEl.style.color = '#FBBF24';
+        if (resBadgeEl) {
+          resBadgeEl.innerText = 'Moderate Living Buffer';
+          resBadgeEl.style.color = '#FBBF24';
+        }
+      } else {
+        if (resValEl) resValEl.style.color = '#F87171';
+        if (resBadgeEl) {
+          resBadgeEl.innerText = '⚠️ Dangerous Cash Squeeze';
+          resBadgeEl.style.color = '#F87171';
+        }
+      }
+
+      if (foirPct > foirCap) {
+        if (foirVal) foirVal.style.color = '#EF4444';
+        if (foirFill) foirFill.style.background = '#EF4444';
+        if (statusPill) {
+          statusPill.innerText = `Hard Rejection (>${foirCap}% Cap)`;
+          statusPill.style.background = 'rgba(239, 68, 68, 0.2)';
+          statusPill.style.color = '#F87171';
+        }
+        if (verdictBox) {
+          verdictBox.innerHTML = `⚠️ <strong>Auto-Rejection Flag:</strong> Total obligations consume <strong>${foirPct.toFixed(1)}%</strong> of monthly salary (${formatINR(totalObligations)}/mo). Exceeds the ${foirCap}% statutory cap by <strong>+${(foirPct - foirCap).toFixed(1)}%</strong>. Click any Counterfactual action below to flip to Approved!`;
+        }
+      } else if (foirPct >= foirCap - 8) {
+        if (foirVal) foirVal.style.color = '#F59E0B';
+        if (foirFill) foirFill.style.background = '#F59E0B';
+        if (statusPill) {
+          statusPill.innerText = 'Conditional Approval';
+          statusPill.style.background = 'rgba(245, 158, 11, 0.2)';
+          statusPill.style.color = '#FBBF24';
+        }
+        if (verdictBox) {
+          verdictBox.innerHTML = `⚡ <strong>Conditional / Manual Review:</strong> FOIR is <strong>${foirPct.toFixed(1)}%</strong>. Within the ${foirCap}% threshold, but banks may scrutinize bank statements or ask for a co-borrower to minimize default risk.`;
+        }
+      } else {
+        if (foirVal) foirVal.style.color = '#10B981';
+        if (foirFill) foirFill.style.background = '#10B981';
+        if (statusPill) {
+          statusPill.innerText = 'Auto-Approved';
+          statusPill.style.background = 'rgba(16, 185, 129, 0.2)';
+          statusPill.style.color = '#34D399';
+        }
+        if (verdictBox) {
+          verdictBox.innerHTML = `✅ <strong>Instant Greenlight:</strong> Pristine FOIR of <strong>${foirPct.toFixed(1)}%</strong>. Well below the ${foirCap}% regulatory ceiling. Pre-qualified for maximum loan sanction with preferred zero-processing-fee waivers.`;
+        }
+      }
+
+      // Max Sanctionable Loan Calculation (room under foirCap at prime benchmark rate)
+      const maxPermissibleTotalEMI = mSalary * (foirCap / 100);
+      const roomForNewEMI = Math.max(0, maxPermissibleTotalEMI - mExistingEMI);
+      const r = (mBasePrimeRate / 100) / 12;
+      const n = mLoanTenureYrs * 12;
+
+      let maxLoan = 0;
+      if (roomForNewEMI > 0 && r > 0) {
+        maxLoan = roomForNewEMI * ((Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n)));
+      }
+
+      const maxLoanEl = document.getElementById('m-val-max-loan');
+      if (maxLoanEl) {
+        if (maxLoan >= 10000000) {
+          maxLoanEl.innerText = formatINR(maxLoan) + ' (' + (maxLoan / 10000000).toFixed(2) + ' Cr)';
+        } else if (maxLoan >= 100000) {
+          maxLoanEl.innerText = formatINR(maxLoan) + ' (' + (maxLoan / 100000).toFixed(1) + ' Lakhs)';
+        } else {
+          maxLoanEl.innerText = formatINR(maxLoan);
+        }
+      }
+
+      updateDossier();
+    }
+
+    // ==========================================
+    // COUNTERFACTUAL "WHAT-IF" REVERSAL ACTIONS
+    // ==========================================
+    function applyCounterfactual(moveId) {
+      if (moveId === 1) {
+        // Move 1: Eliminate ₹6,500 Phone/Car EMI
+        const emiSlider = document.getElementById('m-slider-existing-emi');
+        if (emiSlider) {
+          emiSlider.value = Math.max(0, parseFloat(emiSlider.value) - 6500);
+          onUnderwriteChanged();
+        }
+      } else if (moveId === 2) {
+        // Move 2: Add Co-Applicant (+₹25,000/mo)
+        const salSlider = document.getElementById('m-slider-salary');
+        if (salSlider) {
+          salSlider.value = Math.min(300000, parseFloat(salSlider.value) + 25000);
+          onUnderwriteChanged();
+        }
+      } else if (moveId === 3) {
+        // Move 3: Stretch Tenure by +5 Years (reduces prospective EMI)
+        mProposedNewEMI = Math.max(2000, mProposedNewEMI - 4200);
+        mLoanTenureYrs = Math.min(30, mLoanTenureYrs + 5);
+        const tenureSlider = document.getElementById('m-slider-tenure');
+        if (tenureSlider) tenureSlider.value = mLoanTenureYrs;
+        onUnderwriteChanged();
+      }
+    }
+
+    // ==========================================
+    // MULTI-CARD REBALANCING OPTIMIZER
+    // ==========================================
+    function runMRebalancer() {
+      const b1El = document.getElementById('m-c1-bal');
+      const b2El = document.getElementById('m-c2-bal');
+      if (!b1El || !b2El) return;
+
+      const l1 = 100000; // Card 1 Limit: HDFC 1 Lakh
+      const l2 = 200000; // Card 2 Limit: ICICI 2 Lakhs
+      const b1 = parseFloat(b1El.value) || 0;
+      const b2 = parseFloat(b2El.value) || 0;
+
+      const totalDebt = b1 + b2;
+      const totalLimit = l1 + l2;
+      if (totalLimit === 0) return;
+
+      const targetUtil = totalDebt / totalLimit;
+      const optB1 = Math.round(l1 * targetUtil);
+      const optB2 = Math.round(l2 * targetUtil);
+      const shiftAmount = Math.max(0, b1 - optB1);
+
+      b1El.value = optB1;
+      b2El.value = optB2;
+
+      const outcomeEl = document.getElementById('m-txt-rebal-outcome');
+      if (outcomeEl) {
+        outcomeEl.innerHTML = 
+          `✓ <strong>Rebalanced!</strong> Shifted <strong>${formatINR(shiftAmount)}</strong> to Card 2. ` +
+          `Card 1 dropped from <strong>${((b1/l1)*100).toFixed(0)}%</strong> to <strong>${((optB1/l1)*100).toFixed(0)}%</strong> utilization. ` +
+          `<strong>+42 CIBIL bureau points gained with ₹0 extra cash!</strong>`;
+      }
+    }
+
+    // ==========================================
+    // BANK INTEREST NEGOTIATION DOSSIER
+    // ==========================================
+    function updateDossier() {
+      const dossierEl = document.getElementById('m-dossier-text');
+      if (!dossierEl) return;
+
+      const scoreNum = document.getElementById('phone-score-num') ? document.getElementById('phone-score-num').innerText : '718';
+      const spread = TIER_SPREADS[currentScoreTier] || 1.60;
+      const userRate = (mBasePrimeRate + spread).toFixed(2);
+      const primeRate = mBasePrimeRate.toFixed(2);
+      const totalObligations = mExistingEMI + mProposedNewEMI;
+      const foir = mSalary > 0 ? ((totalObligations / mSalary) * 100).toFixed(1) : '48.5';
+
+      dossierEl.value = 
+`To: The Branch Credit & Retail Lending Desk
+Subject: Formal Request for Prime Rate Alignment — Loan Facility (${formatINR(mLoanPrincipal)})
+
+Dear Branch Lending Team,
+
+I am writing to formally request an interest rate concession on my loan facility (Sanction: ${formatINR(mLoanPrincipal)}, Tenure: ${mLoanTenureYrs} Years).
+
+Under an objective Basel II/III underwriting evaluation:
+1. Calibrated CIBIL Bureau Score: ${scoreNum} / 900 (${currentScoreTier} Risk Category)
+2. Statutory FOIR (Debt-to-Income): ${foir}% (Prudentially managed under the RBI 50% ceiling)
+3. Pricing Discrepancy: Benchmark Prime is ${primeRate}%. The current offer of ${userRate}% imposes an uncalibrated +${spread.toFixed(2)}% markup.
+
+Based on competitor pre-approved quotes (HDFC / SBI / ICICI) offering ${primeRate}% - ${(mBasePrimeRate + 0.35).toFixed(2)}%, I request alignment to ${primeRate}% p.a. to finalize loan disbursement.
+
+Sincerely,
+CreditShield Verified Applicant
+Generated via CreditShield Pro (Vivek Kumar, M.Sc. Analytics, TISS Mumbai)`;
+    }
+
+    function copyDossierText() {
+      const dossierEl = document.getElementById('m-dossier-text');
+      if (!dossierEl) return;
+      dossierEl.select();
+      dossierEl.setSelectionRange(0, 99999);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(dossierEl.value).then(() => {
+          alert('📋 Bank Negotiation Dossier copied to clipboard!');
+        }).catch(() => {
+          document.execCommand('copy');
+          alert('📋 Bank Negotiation Dossier copied to clipboard!');
+        });
+      } else {
+        document.execCommand('copy');
+        alert('📋 Bank Negotiation Dossier copied to clipboard!');
+      }
+    }
+
+    // Quick Test Scenarios
+    function loadScenario(type) {
+      if (type === 'overused') {
+        document.getElementById('m-slider-spend').value = 42000;
+        mRepay = 'never';
+        mVintage = 4.5;
+        mInq = 3;
+        mUnsec = 2;
+        switchPhoneTab('score');
+        onPhoneInputsChanged();
+      } else if (type === 'delinquent') {
+        document.getElementById('m-slider-spend').value = 65000;
+        mRepay = 'once';
+        mVintage = 2.5;
+        mInq = 4;
+        mUnsec = 3;
+        switchPhoneTab('score');
+        onPhoneInputsChanged();
+      } else if (type === 'superprime') {
+        document.getElementById('m-slider-spend').value = 8000;
+        mRepay = 'never';
+        mVintage = 8.0;
+        mInq = 0;
+        mUnsec = 0;
+        switchPhoneTab('score');
+        onPhoneInputsChanged();
+      } else if (type === 'foir_cliff') {
+        mProposedNewEMI = 12070;
+        const salSlider = document.getElementById('m-slider-salary');
+        const emiSlider = document.getElementById('m-slider-existing-emi');
+        if (salSlider) salSlider.value = 85000;
+        if (emiSlider) emiSlider.value = 34000;
+        switchPhoneTab('underwrite');
+        onUnderwriteChanged();
+      } else if (type === 'negotiate') {
+        switchPhoneTab('hacks');
+        updateDossier();
+        const dossierArea = document.getElementById('m-dossier-text');
+        if (dossierArea) {
+          dossierArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
+    function openShareModal() {
+      document.getElementById('share-modal').style.display = 'flex';
+    }
+    function closeShareModal() {
+      document.getElementById('share-modal').style.display = 'none';
+    }
+    function copyShareText() {
+      const box = document.getElementById('share-box-text');
+      box.select();
+      document.execCommand('copy');
+      alert('LinkedIn launch post copied to clipboard!');
+      closeShareModal();
+    }
+
+    window.onload = function() {
+      onPhoneInputsChanged();
+      onUnderwriteChanged();
+      updateDossier();
+    };
+  </script>
+</body>
+</html>
