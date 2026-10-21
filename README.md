@@ -141,32 +141,7 @@ You can add these bullets directly to your CV under **Flagship Analytics Project
 
 ---
 
-## 📢 Ready-to-Post LinkedIn Launch Kit
 
-**Headline:**  
-🚀 *I reverse-engineered credit bureau scoring algorithms and bank underwriting rules to build CreditShield Pro.*
-
-**Post Body:**
-```markdown
-Did you know that a 715 credit score vs a 790 score quietly costs a home loan borrower over ₹11 Lakhs in excess lifetime interest? 
-
-Even worse: when the RBI raises repo rates by 1%, banks rarely increase your monthly EMI — they silently extend your loan tenure from 20 years to 26+ years, extracting an extra ₹28 Lakhs in hidden interest!
-
-To solve this transparency gap, I built CreditShield Pro — a full-featured, mobile-first financial risk terminal that runs directly in your browser:
-
-🔹 Basel II/III Logistic Scorecard Simulator: Reverse-engineers your calibrated 300–900 CIBIL score.
-🔹 The "Shadow Interest Tax" Terminal: Calculates the lifetime excess interest penalty commercial banks charge on Home, Auto, and Personal Loans.
-🔹 Floating Repo Rate Stress-Tester: Exposes the silent tenure extension trap under RBI EBLR rate hikes.
-🔹 Adaptive FOIR & Residual Income Decrypter: Visualizes your debt ratio by employer tier (Govt, Corp, Self-Employed).
-🔹 Counterfactual "What-If" Reversal Engine: Generates Explainable AI actions to flip automated rejections into approvals.
-🔹 Statement Date vs. Due Date Bureau Hack: Explains how timing your card payment 2 days before the bill date surges your score by +35 points with ₹0 extra spend.
-🔹 1-Click Bank Negotiation Dossier & PDF Export: Auto-generates a formal rate reduction letter backed by benchmark repo rate spreads.
-
-Try the live mobile app directly in your browser:
-🔗 App Link: [INSERT_YOUR_GITHUB_PAGES_OR_HOSTED_LINK]
-📂 Python PD & Scorecard Model: https://github.com/Wewake257/Bank-Analytics-Portfolio
-
-Built by Vivek Kumar (M.Sc. Analytics, TISS Mumbai). Open for Data Analytics and Machine Learning Internship opportunities!
 
 #DataAnalytics #FinTech #Banking #CreditRisk #MachineLearning #TISS #DataScience #RiskAnalytics #CreditScore
 ```
