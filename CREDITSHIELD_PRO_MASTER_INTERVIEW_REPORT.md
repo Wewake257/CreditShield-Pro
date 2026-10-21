@@ -1,7 +1,9 @@
 # CreditShield Pro — Comprehensive Master Report & Interview Defense Dossier
 **Project Title:** CreditShield Pro (Consumer Credit Risk Reverse-Engineering & Actuarial Pricing Terminal)  
 **Author:** Vivek Kumar | M.Sc. Analytics, Tata Institute of Social Sciences (TISS), Mumbai  
-**GitHub:** [@Wewake257](https://github.com/Wewake257) | **Email:** m2025anl036@stud.tiss.ac.in  
+**Live Web App:** [https://wewake257.github.io/CreditShield-Pro/](https://wewake257.github.io/CreditShield-Pro/)  
+**GitHub Repository:** [https://github.com/Wewake257/CreditShield-Pro](https://github.com/Wewake257/CreditShield-Pro)  
+**Email:** m2025anl036@stud.tiss.ac.in | **GitHub:** [@Wewake257](https://github.com/Wewake257)  
 **Primary Domain:** Retail Banking Credit Risk Analytics, Basel II/III Scorecard Modeling, Risk-Based Pricing (RBP), Explainable AI (XAI)  
 **Target Roles:** Credit Risk Analyst, Quantitative Risk Modeler, Data Scientist (FinTech/Banking), Financial Analytics Intern  
 

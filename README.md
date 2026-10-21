@@ -13,15 +13,19 @@ Built upon production-grade retail banking credit risk models from [`Bank_Analyt
 
 ---
 
-## 🚀 Live Demo & Quick Launch
+## 🚀 Live Interactive App & Master Dossier
+
+* 🌐 **Live Web Application:** [https://wewake257.github.io/CreditShield-Pro/](https://wewake257.github.io/CreditShield-Pro/)
+* 📄 **Master Interview Defense Dossier:** [`CREDITSHIELD_PRO_MASTER_INTERVIEW_REPORT.md`](./CREDITSHIELD_PRO_MASTER_INTERVIEW_REPORT.md)
+* 💻 **GitHub Repository:** [https://github.com/Wewake257/CreditShield-Pro](https://github.com/Wewake257/CreditShield-Pro)
 
 ### Run Locally:
 ```powershell
 # Open interactive cockpit in any browser
-start d:/Resume/projects/CreditShield_Pro_App/index.html
+start index.html
 
 # Run the backend math & validation engine
-python d:/Resume/projects/CreditShield_Pro_App/credit_shield_engine.py
+uv run python credit_shield_engine.py
 ```
 
 ### Publish to Free Public URL (GitHub Pages / Vercel):
