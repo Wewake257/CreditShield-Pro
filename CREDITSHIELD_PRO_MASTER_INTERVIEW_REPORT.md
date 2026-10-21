@@ -25,19 +25,23 @@
 
 ## 1. Executive Summary: What is CreditShield Pro?
 
-**CreditShield Pro** is an open-access, consumer-facing algorithmic financial risk terminal engineered to reverse-engineer credit bureau scoring mechanics (TransUnion CIBIL/Experian), quantify the hidden lifetime **"Shadow Interest Tax"** commercial banks levy on subprime borrowers, decode statutory bank underwriting constraints (the 50% FOIR ceiling), and provide algorithmic interventions to optimize credit profiles without incremental expenditure.
+**CreditShield Pro** is an open-access, consumer-facing algorithmic credit risk and actuarial pricing terminal. It is engineered to benchmark consumer credit risk using calibrated **Basel II/III Internal Ratings-Based (IRB) logistic scorecard mechanics**, quantify the long-term **"Shadow Interest Tax"** that commercial lenders levy on subprime risk tiers under Risk-Based Pricing (RBP) schedules, decode statutory bank underwriting constraints (such as the prudential 50% FOIR threshold), and simulate actionable balance-rebalancing interventions to optimize revolving credit metrics.
 
-Unlike static financial calculators or proprietary black-box credit monitoring apps that merely sell personal loans and credit cards, CreditShield Pro functions as an **actuarial diagnostic tool**. It runs as an interactive mobile simulator directly in the web browser, allowing any borrower to understand the mathematical levers controlling their financial health.
+> [!IMPORTANT]
+> **Model Risk Governance & Bureau Disclaimer:**  
+> Commercial credit bureaus (TransUnion CIBIL, Experian, Equifax, CRIF High Mark) deploy proprietary, confidential scoring algorithms with undisclosed weights. CreditShield Pro does not claim to duplicate or reverse-engineer proprietary bureau source code. Instead, it implements standard institutional Basel II/III credit risk methodology—utilizing Weights of Evidence (WoE), Log-Odds calibration, and Points to Double the Odds ($PDO=20$) scaled to a standardized 300–900 domain—providing borrowers with an auditable, educational proxy risk terminal.
+
+Unlike commercial lead-generation portals that monetize credit inquiries by advertising high-interest unsecured loans, CreditShield Pro functions as an **unbiased actuarial diagnostic tool**. Running 100% client-side in the browser, it enables retail borrowers to understand the mathematical levers controlling their lending risk tier.
 
 ```
 +----------------------------------------------------------------------------------------------------+
 |                                    CREDITSHIELD PRO PLATFORM                                       |
 +------------------------------------+-----------------------------------+---------------------------+
 |         CONSUMER COCKPIT           |        ACTUARIAL ENGINES          |      EXPLAINABLE AI       |
-|  * 300-900 Live CIBIL Gauge        |  * Basel II/III Logistic Engine   |  * Counterfactual Action  |
-|  * 5 Everyday Behavioral Inputs    |  * Risk-Based Pricing Matrix      |  * Underwriting Decrypter |
+|  * Standardized 300-900 Risk Gauge |  * Basel II/III Logistic Engine   |  * Counterfactual Action  |
+|  * Behavioral Telemetry Inputs     |  * Risk-Based Pricing Matrix      |  * Underwriting Decrypter |
 |  * Prepayment Arbitrage Slider     |  * EBLR Repo Stress-Tester        |  * Multi-Card Rebalancer  |
-|  * 1-Click Bank Dossier Generator  |  * Residual Income Safety Buffer  |  * Statement Date Hack    |
+|  * 1-Click Bank Dossier Generator  |  * Residual Income Safety Buffer  |  * Statement Date Audit   |
 +------------------------------------+-----------------------------------+---------------------------+
 ```
 
@@ -50,17 +54,17 @@ In retail financial markets, there is severe **information asymmetry** between i
 This imbalance manifests in three acute consumer pain points:
 
 ### Pain Point 1: The "Shadow Interest Tax"
-Most borrowers mistakenly believe credit scores operate as a simple binary pass/fail gate: *"As long as my CIBIL score is above 700, the bank approves my loan, so I am fine."*  
-**The Reality:** Commercial banks implement **Risk-Based Pricing (RBP)** schedules. An applicant with a 718 credit score (Near Prime) receives an approval, but the bank quietly prices their 20-year ₹50 Lakh home loan at **9.95%** instead of the Super Prime benchmark of **8.35%**.  
-* This seemingly small **1.60% interest spread** costs the borrower **₹11,48,240 in excess interest** over 20 years. That is ₹11.5 Lakhs of wealth transferred from a middle-class household to the bank's net interest margin (NIM) purely due to sub-optimal credit positioning.
+Most borrowers mistakenly believe credit scores operate as a simple binary pass/fail gate: *"As long as my credit score is above 700, the bank approves my loan, so I am fine."*  
+**The Reality:** Commercial banks implement **Risk-Based Pricing (RBP)** schedules where interest rates vary by risk tier. Under our baseline model assumptions (a ₹50 Lakh, 20-year retail home loan), a lender applying a 160 bps risk spread between Near Prime (9.95%) and Super Prime (8.35%) extracts **₹11,48,240 in excess interest** over the loan life.
+* *Regulatory & Market Context:* While rate grids vary across commercial banks based on Loan-to-Value (LTV), property type, and market conditions, this actuarial delta demonstrates how sub-prime tier placement quietly inflates lifetime financing costs.
 
 ### Pain Point 2: The "Due Date" Reporting Trap
 Over 90% of credit cardholders pay their statement balance on the official **Payment Due Date** (e.g., the 5th of each month) and believe their credit profile is flawless.  
-**The Reality:** Credit bureaus do **not** capture balances on the due date. Commercial banks transmit monthly batch tapes to TransUnion CIBIL on the **Statement Generation Date (Bill Date)**, which occurs 15 to 20 days prior to the due date. If an applicant spent ₹85,000 on a ₹1,00,000 limit card, CIBIL logs an **85% utilization flag**, heavily penalizing the borrower with a 35 to 45 point score drop, even if the bill was paid in full on the due date.
+**The Reality:** Credit bureaus do not receive daily real-time payment signals. Commercial card issuers transmit batch tapes to credit bureaus based on the **Statement Generation Date (Bill Date)**, which occurs 15 to 20 days prior to the due date. An applicant carrying ₹85,000 on a ₹1,00,000 limit card on their statement date has an **85% revolving utilization ratio** logged on bureau records, even if paid in full by the due date. In scorecard modeling, utilization exhibits steep non-linear risk penalties; settling balances before statement cut-off provides strong directional support to credit health, though actual score adjustments vary with overall credit depth.
 
-### Pain Point 3: The 50% FOIR Statutory Rejection Cliff
-Borrowers with pristine 780+ CIBIL scores and high salaries (e.g., ₹85,000/month) frequently face sudden, automated loan rejections when applying for auto or personal loans.  
-**The Reality:** Commercial banks enforce a mandatory prudential underwriting constraint: **FOIR (Fixed Obligation to Income Ratio)**, capped at 50% under RBI retail lending guidelines. If existing debts (₹34,000) plus the prospective EMI (₹12,070) equal ₹46,070, the borrower's debt ratio hits **54.2%**. The bank's rule-based credit engine triggers an **immediate, non-negotiable auto-rejection**, regardless of how high the credit score is.
+### Pain Point 3: The Prudential FOIR Underwriting Boundary
+Borrowers with high credit scores and substantial salaries frequently face unexpected loan rejections when applying for retail loans.  
+**The Reality:** Commercial lenders enforce a prudential debt-capacity boundary: **FOIR (Fixed Obligation to Income Ratio)**, typically bounded between 40% and 55% (with 50% widely utilized as a benchmark norm). If existing obligations (₹34,000) plus a prospective EMI (₹12,070) total ₹46,070 on an ₹85,000 net salary, the applicant's ratio reaches **54.2%**, triggering automated qualification friction. CreditShield Pro's counterfactual optimization identifies actionable modifiable variables (such as retiring a small loan or adjusting tenure) to bring the applicant within standard qualifying thresholds prior to formal submission.
 
 ---
 
@@ -79,31 +83,31 @@ CreditShield Pro was engineered so that anyone without a finance degree can open
 
 ### Tab-by-Tab User Walkthrough:
 
-#### Tab 1: CIBIL Score Simulator
+#### Tab 1: Calibrated Credit Risk Simulator
 * **Action:** Move the slider for monthly card spend and tap buttons for payment history (Never missed vs. Once), credit age, and recent loan inquiries.
-* **Result:** The circular speedometer updates in real time (300 to 900 scale) and flags your exact credit tier (`Super Prime`, `Prime`, `Near Prime`, `Subprime`, `Distressed`).
+* **Result:** The circular speedometer updates in real time on a standardized 300 to 900 scale using our Basel II/III logistic scorecard engine, mapping your inputs to risk tiers (`Super Prime`, `Prime`, `Near Prime`, `Subprime`, `Distressed`). *(Note: An educational proxy; actual bureau scores depend on proprietary bureau algorithms).*
 
-#### Tab 2: Loan EMI & Prepayment Arbitrage
+#### Tab 2: Loan EMI, RBP Arbitrage & Floating Repo Shock
 * **Action:** Choose a loan preset (Home ₹50L, Car ₹12L, Personal ₹5L, Education ₹20L) and adjust tenure and interest sliders.
 * **Result:** 
-  1. The **Money Shock Box** tells you: *"You are paying ₹11,48,240 extra over your loan life because of your credit tier."*
-  2. The **Amortization Bar** breaks down what percent of your payment goes to Principal, Interest, and Bank Interest Tax.
-  3. The **Prepayment Slider** shows: *"Prepaying just ₹3,000 extra per month cuts 4.8 Years off debt and saves ₹14.2 Lakhs in cash!"*
-  4. The **Floating Repo Shock Stress-Tester** demonstrates what happens when the RBI hikes interest rates: keeping EMI constant silently extends tenure by +5.6 Years.
+  1. The **Money Shock Box** highlights the interest cost disparity across credit tiers based on stated loan inputs (e.g., ₹11,48,240 on a ₹50L, 20-yr home loan at 9.95% vs 8.35%).
+  2. The **Amortization Bar** breaks down the principal vs interest distribution over the loan term.
+  3. The **Prepayment Slider** demonstrates the compounding benefit of partial prepayments (e.g., adding ₹3,000/month to shave years off debt).
+  4. The **Floating Repo Shock Stress-Tester** simulates the constant-EMI transmission mechanism under RBI's EBLR framework: holding EMI fixed during a 100 bps rate hike extends tenure by +5.6 years and increases total interest by ~₹28.7 Lakhs. *(Note: Borrowers also retain the option under RBI 2023 norms to increase EMI or prepay to avoid tenure extension).*
 
-#### Tab 3: Regulatory Underwrite & AI Reversal
-* **Action:** Input monthly take-home salary (e.g., ₹85,000) and existing monthly EMIs (e.g., ₹34,000).
+#### Tab 3: Regulatory Underwrite & Counterfactual Optimization
+* **Action:** Select employer category (`Private Corp`, `Govt / CAT-A`, `Self-Employed`), input net in-hand monthly take-home salary, and enter existing monthly EMIs.
 * **Result:** 
-  1. The **FOIR Progress Bar** highlights whether you are within the statutory cap.
-  2. The **Residual Living Buffer** shows leftover cash flow (e.g., ₹38,930/month) for family living expenses.
-  3. If rejected, tap any of the **3 Counterfactual AI Action Cards** (e.g., *"Eliminate ₹6,500 Phone EMI"*) to immediately flip the status badge to **Auto-Approved**.
+  1. The **FOIR Progress Bar** tests your debt commitments against illustrative underwriting benchmarks (42% to 55% adaptive thresholds).
+  2. The **Residual Living Buffer** computes unencumbered monthly cash flow for household living costs.
+  3. If debt commitments exceed the qualifying threshold, the **Counterfactual AI Cards** calculate the minimal actionable changes (e.g., paying off a specific small EMI or adjusting tenure) needed to align metrics with standard underwriting criteria prior to bank submission. *(Final loan approval remains subject to lender verification and underwriting discretion).*
 
-#### Tab 4: Bureau Hacks & Negotiation Dossier
-* **Action:** View the visual timeline explaining the Statement Date hack, or enter two credit card balances into the Multi-Card Rebalancing card and click **"Rebalance Limits"**.
-* **Result:** The optimizer redistributes card debt across available credit limits to drop utilization to 31%, recovering **+42 CIBIL points within 30 days without spending extra cash**. Tap **"Copy Negotiation Letter"** to get a ready-made letter to demand a lower rate from your bank manager.
+#### Tab 4: Bureau Telemetry & Multi-Card Rebalancing
+* **Action:** Explore the statement-date reporting timeline or enter balances and limits across two credit cards and click **"Rebalance Limits"**.
+* **Result:** The constrained optimizer redistributes balances across existing credit limits to reduce single-card peak utilization, providing positive directional momentum to your scorecard profile without requiring immediate incremental principal payoff. Tap **"Copy Negotiation Letter"** to generate an illustrative interest rate review request for your lender.
 
 #### Tab 5: Recruiter & Quant Mode
-* **Action:** Designed for hiring managers and analytics interviewers to inspect the underlying logistic regression formulas, Weights of Evidence tables, ROC-AUC performance metrics, and GitHub source code.
+* **Action:** Designed for hiring managers, model risk governance officers, and analytics interviewers to inspect the underlying logistic regression formulas, Weights of Evidence tables, and GitHub source code.
 
 ---
 
@@ -168,12 +172,22 @@ This yields three closed-form deterministic actions:
 3. **Tenure Extension:** Shaves $\text{EMI}_{\text{new}}$ by stretching loan horizon $n \rightarrow n + 60\text{ months}$.
 
 ### D. Floating EBLR Repo Rate Transmission Shock
-Under RBI External Benchmark Lending Rate regulations, loans are floating. When repo rates rise by $\Delta r$, if banks freeze monthly EMI at $\text{EMI}_0$, the inflated loan tenure in months $n_{\text{inflated}}$ is derived as:
+Under RBI External Benchmark Lending Rate (EBLR) regulations, retail floating loans are linked to market benchmarks (typically the RBI policy repo rate). When policy rates rise by $\Delta r$, lenders operationally have three transmission pathways:
+1. **Increase Monthly EMI** (preserving loan tenure).
+2. **Extend Loan Tenure** (freezing the monthly EMI to avoid borrower cash flow shocks).
+3. **Hybrid Adjustment** (partial EMI hike paired with moderate tenure extension).
+
+CreditShield Pro models the **constant-EMI transmission mechanism**—historically the most common default bank operational practice:
 
 $$n_{\text{inflated}} = \frac{-\ln \left( 1 - \frac{P \times r_{\text{stress}}}{\text{EMI}_0} \right)}{\ln(1 + r_{\text{stress}})}$$
 
-Where $r_{\text{stress}} = \frac{\text{Base Rate} + \text{Spread} + \Delta r}{1200}$.  
-If $P \times r_{\text{stress}} \ge \text{EMI}_0$, the loan enters **negative amortization** (the interest exceeds monthly EMI, causing the debt balance to grow indefinitely).
+Where $r_{\text{stress}} = \frac{\text{Base Rate} + \text{Spread} + \Delta r}{1200}$ and $\text{EMI}_0 = P \times \frac{r_0(1+r_0)^{n_0}}{(1+r_0)^{n_0}-1}$.
+
+* **Stated Baseline Scenario:** On a ₹50,00,000 retail home loan originated at 8.35% for 240 months ($n_0=20\text{ years}$, $\text{EMI}_0 = \text{₹}42,918$):
+  * If rates rise by +100 bps ($\Delta r = +1.00\%$, new rate 9.35%) at initiation and EMI is kept frozen at ₹42,918, tenure expands from 240 months to **307 months (+67 months / +5.6 years)**.
+  * Lifetime interest paid expands from ₹53,00,248 to ₹81,75,826—an increase of **₹28,75,578 in interest outflow**.
+  * **Borrower Rights (RBI 2023 Guidelines):** Under RBI's circular on floating interest resets, banks must give borrowers the explicit choice at every reset date to switch to higher EMI, prepay without penalty, or switch to a fixed-rate loan.
+* **Boundary Condition (Negative Amortization):** If $P \times r_{\text{stress}} \ge \text{EMI}_0$, the monthly interest exceeds the fixed EMI. The principal never amortizes and instead compounds indefinitely, requiring our simulator to trigger a hard structural warning.
 
 ---
 
@@ -249,9 +263,10 @@ During executive and quantitative risk interviews, articulating model boundaries
 +-----------------------------+------------------------------------+--------------------------------+
 ```
 
-1. **The Residual Income Paradox:** A blanket 50% cap fails for ultra-high-net-worth individuals earning ₹5,00,000/month. We addressed this by integrating the **Adaptive Employer & Salary Tier Engine**, which expands FOIR tolerance to 55–60% while auditing absolute unencumbered residual cash flow.
-2. **Reporting Tape Latencies:** Private banks (HDFC, ICICI, Axis) transmit CIBIL tapes on statement dates, but smaller regional cooperative banks often transmit batch records on month-end calendar dates. We address this by documenting bureau reporting latency windows.
-3. **Income Composition Haircuts:** Real underwriters apply haircuts to non-fixed salary components (50% haircut on annual bonuses, 30% haircut on rental cash flow). We address this by specifying that users enter **net recurring monthly in-hand take-home pay**.
+1. **The Residual Income & Employer Tier Heuristic:** Blanket debt caps fail for very high earners (who can comfortably service higher debt) and volatile earners. In our simulator, adaptive FOIR thresholds (42% to 55%) are modeled as **illustrative heuristic benchmarks** reflecting standard industry credit policy variations between Category-A salaried employees and self-employed professionals.
+2. **Reporting Tape Latencies:** Private sector banks often transmit bureau tapes based on cycle bill dates, whereas some regional institutions upload batch files on calendar month-ends. We address this by documenting bureau latency windows.
+3. **Income Composition Haircuts:** Real underwriters apply policy haircuts to non-fixed salary components (e.g., 50% haircut on annual bonuses, 30% haircut on rental cash flow). We address this by specifying that users enter **net recurring monthly in-hand take-home pay**.
+4. **Proxy Scorecard Scope:** The engine implements standard Basel II/III logistic scorecard methodology ($PDO=20$) on a 300–900 domain. It serves as an open-access risk benchmark; it does not replicate proprietary bureau scoring algorithms (TransUnion CIBIL, Experian), which remain trade secrets.
 
 ---
 
@@ -260,37 +275,37 @@ During executive and quantitative risk interviews, articulating model boundaries
 Review these 15 questions before entering any data analytics, fintech, or quantitative banking interview:
 
 #### Q1: "What is the business value of CreditShield Pro for a commercial bank?"
-> **Answer:** *"From a bank's perspective, CreditShield Pro models both risk mitigation and customer acquisition economics. By educating applicants on FOIR and credit utilization prior to formal submission, it filters out unqualified demand, reducing operational underwriting rejection costs. Furthermore, for bank treasury and balance transfer desks, the tool identifies near-prime borrowers who can be refinanced from competitors by offering a 50-basis-point interest concession while maintaining Basel-compliant capital adequacy margins."*
+> **Answer:** *"From a bank's perspective, CreditShield Pro models risk mitigation, pre-qualification efficiency, and customer acquisition economics. By educating applicants on FOIR limits and credit utilization prior to formal submission, it filters out unqualified demand, reducing manual credit underwriting processing costs. Furthermore, for bank portfolio balance-transfer desks, it illustrates how near-prime borrowers can be refinanced by offering risk-calibrated interest concessions while maintaining Basel-compliant capital adequacy margins."*
 
 #### Q2: "Explain the mathematics of PDO (Points to Double the Odds). Why PDO = 20?"
 > **Answer:** *"Points to Double the Odds defines the slope factor of the linear scaling transformation between calibrated log-odds and credit score points. Setting $\text{PDO}=20$ means that if an applicant's default odds improve from $50:1$ to $100:1$, their credit score increases by exactly 20 points. We calculate the scaling factor as $\text{Factor} = \frac{PDO}{\ln(2)} \approx 28.8539$. PDO = 20 is the global commercial benchmark established by Fair Isaac (FICO) and TransUnion because it scales default probabilities evenly across the standard 300 to 900 point domain without compression."*
 
 #### Q3: "What is Weights of Evidence (WoE), and what are its mathematical properties?"
-> **Answer:** *"Weights of Evidence measures the predictive strength of an independent variable bin in separating good accounts from bad accounts. It is formulated as $\text{WoE}_i = \ln(\% \text{Good}_i / \% \text{Bad}_i)$. Its key mathematical properties are: (1) It linearizes non-linear relationships with log-odds, enabling standard logistic regression to capture threshold cliffs like our 30% credit utilization drop; (2) It handles outliers and missing values robustly through categorical grouping; and (3) It allows computation of Information Value ($\text{IV} = \sum (\% \text{Good} - \% \text{Bad}) \times \text{WoE}$), identifying variables with strong predictive power ($\text{IV} \ge 0.30$) without multicollinearity."*
+> **Answer:** *"Weights of Evidence measures the predictive strength of an independent variable bin in separating good accounts from bad accounts: $\text{WoE}_i = \ln(\% \text{Good}_i / \% \text{Bad}_i)$. Its key mathematical properties are: (1) It linearizes non-linear relationships with log-odds, enabling standard logistic regression to capture threshold cliffs like our 30% credit utilization drop; (2) It handles outliers and missing values robustly through categorical grouping; and (3) It allows computation of Information Value ($\text{IV} = \sum (\% \text{Good} - \% \text{Bad}) \times \text{WoE}$), identifying variables with strong predictive power ($\text{IV} \ge 0.30$) without multicollinearity."*
 
-#### Q4: "Why does paying 2 days before the Statement Date surge a credit score?"
-> **Answer:** *"Credit bureau reporting is asynchronous. Commercial banks do not report balances in real time on payment due dates. Instead, they extract an end-of-cycle balance snapshot on the Statement Generation Date and upload it via monthly ASCII batch tapes to CIBIL. If a borrower waits until the payment due date 20 days later, the bureau records an entire month of peak utilization (e.g., 85%). Prepaying 2 days before the statement generates forces the bank's batch tape to log a low balance (e.g., 20%), eliminating the severe WoE non-linear utilization penalty."*
+#### Q4: "Why does paying before the Statement Date support a credit score?"
+> **Answer:** *"Credit card reporting is tied to billing cycles. Commercial issuers typically extract an end-of-cycle balance snapshot on the Statement Generation Date and transmit it to credit bureaus via monthly batch tapes. If a cardholder waits until the Payment Due Date 20 days later, the bureau records high peak utilization (e.g., 85%), triggering steep non-linear scorecard penalties. Settling balances before statement cut-off ensures a low revolving utilization ratio is reported to bureaus. While the exact point impact varies based on file depth and active trade-lines, controlling reported utilization provides strong positive directional momentum to credit health."*
 
 #### Q5: "How does your model handle the Kolmogorov-Smirnov (KS) statistic and ROC-AUC?"
 > **Answer:** *"The Kolmogorov-Smirnov statistic measures the maximum vertical divergence between the cumulative distribution functions of good borrowers and bad borrowers: $KS = \max |F_{\text{Good}}(s) - F_{\text{Bad}}(s)|$. In retail banking, regulators look for $KS \ge 0.40$ to ensure the scorecard effectively bifurcates prime and subprime populations. Our calibrated engine achieves a $KS = 0.442$ and an $\text{ROC-AUC} = 0.887$, demonstrating that an arbitrary good borrower ranks higher than an arbitrary bad borrower 88.7% of the time."*
 
 #### Q6: "What is FOIR and how does it differ from DTI (Debt-to-Income)?"
-> **Answer:** *"In Western jurisdictions, Debt-to-Income (DTI) evaluates gross pre-tax income against total debt obligations. In Indian commercial banking, the Reserve Bank of India mandates FOIR (Fixed Obligation to Income Ratio), which strictly evaluates net in-hand monthly take-home salary against aggregate fixed EMIs. FOIR is much more conservative because it deducts income tax, provident fund (EPF), and professional tax at source, ensuring the borrower's real cash flow is not overstated."*
+> **Answer:** *"In Western jurisdictions, Debt-to-Income (DTI) evaluates gross pre-tax income against total debt obligations. In Indian commercial banking, lenders enforce FOIR (Fixed Obligation to Income Ratio), which evaluates net in-hand monthly take-home salary against aggregate fixed EMIs. FOIR is more conservative because it evaluates income after statutory deductions (tax, EPF, professional tax). While underwriting policies vary by lender and employer tier, prudential retail benchmarks typically range between 40% and 55%, with 50% widely utilized as a standard qualification benchmark."*
 
 #### Q7: "What happens mathematically during an RBI Repo Rate hike under EBLR?"
-> **Answer:** *"Under the RBI External Benchmark Lending Rate (EBLR) framework, floating retail loans are pegged directly to the policy repo rate. When the repo rate rises by 100 bps, if the monthly EMI is kept constant, the principal component of the payment ($\text{EMI} - P \times r$) shrinks dramatically while the interest component surges. To recover the principal balance, the amortization schedule inflates the exponent $n$ in the annuity formula. On a 20-year home loan at 8.35%, a 1.0% hike inflates tenure by +5.6 years and extracts ₹28.7 Lakhs in additional interest."*
+> **Answer:** *"Under the RBI External Benchmark Lending Rate (EBLR) framework, floating retail loans are pegged to market benchmarks like the repo rate. When policy rates rise by 100 bps, lenders operationally have choices: increase monthly EMI, extend loan tenure, or use a hybrid approach. If a lender holds EMI constant, the principal amortization component ($\text{EMI} - P \times r$) shrinks, inflating the required tenure exponent $n$. On our baseline ₹50 Lakh, 20-year home loan at 8.35%, keeping EMI fixed under a +100 bps rate shock extends tenure by +67 months (+5.6 years) and increases total interest by approximately ₹28.7 Lakhs. Under RBI's 2023 circular, borrowers have the statutory right at rate resets to opt for a higher EMI or make prepayments instead of accepting tenure extension."*
 
-#### Q8: "How does your multi-card rebalancer optimize credit scores with zero expenditure?"
-> **Answer:** *"Credit scoring engines penalize both aggregate portfolio utilization and single-card maximum utilization. If a borrower has two cards each with ₹1,00,000 limits, and carries an ₹85,000 balance on Card 1 and ₹5,000 on Card 2, their aggregate utilization is 45%, but Card 1 triggers an extreme 85% single-card distress penalty. The rebalancer solves a constrained allocation problem: $B_i^* = L_i \times (\sum B / \sum L)$, equalizing utilization to 45% across all trade-lines. This eliminates the severe single-card bottleneck, recovering +35 to +50 points without requiring any cash payoff."*
+#### Q8: "How does your multi-card rebalancer optimize credit metrics with zero expenditure?"
+> **Answer:** *"Credit scoring models penalize both aggregate portfolio utilization and single-card maximum utilization. If a borrower has two cards each with ₹1,00,000 limits, carrying an ₹85,000 balance on Card 1 and ₹5,000 on Card 2 results in an aggregate utilization of 45%, but Card 1 triggers an acute 85% single-card utilization penalty. The rebalancer solves a constrained allocation problem to equalize utilization across trade-lines, eliminating the severe single-card bottleneck. This reallocation provides positive directional improvement without requiring new cash payoff, assuming organic spend redirection (formal bank balance transfers incur a 1.0% to 1.5% fee)."*
 
 #### Q9: "Why didn't you use an XGBoost model instead of Logistic Regression?"
-> **Answer:** *"In credit risk, predictive power is secondary to regulatory compliance, monotonicity, and explainability. XGBoost creates non-linear feature interactions that violate model risk management guidelines (Basel II/III and US Federal Reserve SR 11-7). Furthermore, trees can create non-monotonic risk inversions where a higher debt level locally predicts lower default risk due to data sparsity. Logistic Scorecards with WoE guarantee monotonic risk behavior, auditable factor weights, and closed-form adverse action reason codes."*
+> **Answer:** *"In institutional credit risk, predictive power is strictly secondary to regulatory compliance, monotonicity, and explainability. XGBoost creates non-linear feature interactions that violate model risk management guidelines (Basel II/III and US Federal Reserve SR 11-7). Furthermore, tree ensembles can suffer from local overfitting, creating non-monotonic risk inversions where higher utilization locally predicts lower default risk due to data sparsity. Logistic Scorecards with WoE guarantee monotonic risk behavior, auditable factor weights, and closed-form adverse action reason codes required by fair lending regulations."*
 
 #### Q10: "What is Negative Amortization and how does your stress-tester detect it?"
 > **Answer:** *"Negative amortization occurs when the monthly interest obligation exceeds the scheduled monthly EMI: $P \times r > \text{EMI}$. When this inequality holds, the principal balance does not decrease—it compounds and grows each month. Our repo rate stress-test evaluates the condition $P \times r_{\text{stress}} \ge \text{EMI}_0$. If true, it halts the standard annuity equation and outputs a critical warning that the loan will grow indefinitely without immediate voluntary prepayments."*
 
 #### Q11: "Explain how your Counterfactual Reversal Engine works."
-> **Answer:** *"Counterfactual explanations in Explainable AI answer the question: 'What is the minimal actionable change to input features that flips a machine learning decision from Reject to Approve?' Our engine sets the decision boundary at $\text{FOIR} \le \text{Cap}$ and calculates three distinct parameter perturbations: $\Delta \text{EMI}_{\text{payoff}}$, $\Delta \text{Salary}_{\text{co-applicant}}$, and $\Delta n_{\text{tenure}}$. It presents these perturbations as concrete action cards with quantified approval probability deltas (e.g., approval odds surging from 34% to 86%)."*
+> **Answer:** *"Counterfactual explanations in Explainable AI answer the question: 'What is the minimal actionable change to input features that aligns a decision with qualifying criteria?' Our engine sets the underwriting boundary at $\text{FOIR} \le \text{Threshold}$ and calculates three distinct parameter perturbations: $\Delta \text{EMI}_{\text{payoff}}$, $\Delta \text{Salary}_{\text{co-applicant}}$, and $\Delta n_{\text{tenure}}$. It presents these perturbations as actionable choices (e.g., retiring an existing small EMI) to help applicants meet standard underwriting guidelines before applying. Actual loan approval remains subject to formal lender verification and underwriting discretion."*
 
 #### Q12: "How does prepayment arbitrage work mathematically?"
 > **Answer:** *"Early in an amortization schedule, the interest component dominates monthly payments because the outstanding principal balance $P$ is large. Every rupee paid as an unscheduled prepayment is deducted directly from the principal balance $P$, bypassing future interest accrual. Because compounding interest scales exponentially with principal over time, prepaying ₹3,000 extra per month on a 20-year ₹50 Lakh loan at 9.95% extinguishes the debt 4.8 years early and eliminates ₹14,20,500 in lifetime interest."*

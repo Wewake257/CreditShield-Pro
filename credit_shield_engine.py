@@ -404,6 +404,11 @@ class CounterfactualReversalEngine:
         prospective_loan_emi: float,
         current_tenure_years: int
     ) -> List[Dict]:
+        """
+        Derives minimal actionable parameter adjustments to bring an applicant's
+        debt service ratio within standard underwriting benchmarks (e.g. 50% FOIR).
+        Note: Formal loan sanction remains at the sole underwriting discretion of the lender.
+        """
         actions = []
         cap = RegulatoryUnderwritingFOIREngine.STATUTORY_FOIR_CAP / 100.0
 
@@ -414,10 +419,10 @@ class CounterfactualReversalEngine:
             actions.append({
                 "action_id": 1,
                 "strategy": "DEBT_ELIMINATION",
-                "title": f"Eliminate INR {payoff_needed:,.0f} in Monthly Existing EMIs",
-                "mechanism": "Foreclose personal loan or consumer durable debt.",
+                "title": f"Retire INR {payoff_needed:,.0f} in Monthly Existing EMIs",
+                "mechanism": "Foreclose high-interest personal loan or consumer durable debt.",
                 "projected_foir": 49.5,
-                "approval_probability_delta": "+52% Approval Surge"
+                "approval_probability_delta": "Aligns FOIR within 50% Qualifying Cap"
             })
 
         # Action 2: Co-applicant Income Augmentation
@@ -428,9 +433,9 @@ class CounterfactualReversalEngine:
                 "action_id": 2,
                 "strategy": "CO_APPLICANT_AUGMENTATION",
                 "title": f"Add Co-Applicant with Monthly In-Hand >= INR {additional_salary_needed:,.0f}",
-                "mechanism": "Add spouse, parent, or working sibling as joint borrower.",
+                "mechanism": "Add creditworthy spouse or parent as joint borrower to augment qualifying income.",
                 "projected_foir": 42.0,
-                "approval_probability_delta": "Auto-Approved Status"
+                "approval_probability_delta": "Reduces Debt-Service Ratio to 42%"
             })
 
         # Action 3: Tenure Extension Arbitrage
@@ -441,7 +446,7 @@ class CounterfactualReversalEngine:
                 "title": f"Stretch Loan Tenure from {current_tenure_years} to {min(30, current_tenure_years + 5)} Years",
                 "mechanism": "Lowers monthly prospective EMI to bring composite FOIR under 50%.",
                 "projected_foir": 48.8,
-                "approval_probability_delta": "Flips Rejection to Approved"
+                "approval_probability_delta": "Aligns Prospective EMI with Income Cap"
             })
 
         return actions

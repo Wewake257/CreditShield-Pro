@@ -1,13 +1,17 @@
-# CreditShield Pro — CIBIL Score Reverse-Engineering & Shadow Interest Tax Engine
+# CreditShield Pro — Basel II/III Scorecard Terminal & Actuarial Pricing Simulator
 **Author:** Vivek Kumar | M.Sc. Analytics, Tata Institute of Social Sciences (TISS), Mumbai  
 **GitHub:** [@Wewake257](https://github.com/Wewake257) | **Email:** m2025anl036@stud.tiss.ac.in  
-**Domain:** Retail Banking Analytics, Basel II/III Scorecard Modeling & Risk-Based Pricing (RBP)
+**Domain:** Retail Banking Risk Analytics, Basel II/III Scorecard Modeling & Risk-Based Pricing (RBP)
 
 ---
 
 ## 🌟 Executive Summary
 
-**CreditShield Pro** is an open-access, consumer-facing financial risk terminal that reverse-engineers credit bureau scoring algorithms (CIBIL/Experian), quantifies the lifetime **"Shadow Interest Tax"** charged by commercial banks across home, auto, and personal loans, and implements a multi-card balance rebalancing optimizer that recovers 30–50 bureau score points in 30 days without spending extra cash.
+**CreditShield Pro** is an open-access, consumer-facing algorithmic credit risk and actuarial pricing terminal. It benchmarks retail credit risk using calibrated **Basel II/III Internal Ratings-Based (IRB) logistic scorecard mechanics ($PDO=20$)**, quantifies the long-term **"Shadow Interest Tax"** associated with commercial bank Risk-Based Pricing (RBP) schedules across retail loans, and models multi-card balance rebalancing strategies to optimize revolving credit utilization without incremental capital.
+
+> [!NOTE]
+> **Regulatory & Bureau Disclaimer:**  
+> Commercial credit bureaus (TransUnion CIBIL, Experian, Equifax, CRIF High Mark) use proprietary, confidential algorithms. CreditShield Pro does not replicate proprietary bureau models; rather, it implements standard institutional Basel II/III scorecard methodology (WoE, Log-Odds, $PDO=20$) scaled to a standardized 300–900 domain to provide an auditable, educational proxy. Stated interest differentials are modeled on defined baseline loan parameters (e.g., ₹50 Lakh, 20-year retail loan with a 160 bps risk spread). Actual rates and approval decisions remain at the sole discretion of lending institutions.
 
 Built upon production-grade retail banking credit risk models from [`Bank_Analytics_Portfolio/credit_risk_pd_model.py`](../Bank_Analytics_Portfolio/credit_risk_pd_model.py), this tool bridges the gap between complex institutional credit analytics and everyday financial decision-making.
 
