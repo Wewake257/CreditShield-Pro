@@ -1,4 +1,4 @@
-# CreditShield Pro — Comprehensive Master Report & Interview Defense Dossier
+# CreditShield Pro — Comprehensive Master Report &  Defense Dossier
 **Project Title:** CreditShield Pro (Consumer Credit Risk Reverse-Engineering & Actuarial Pricing Terminal)  
 **Author:** Vivek Kumar | M.Sc. Analytics, Tata Institute of Social Sciences (TISS), Mumbai  
 **Live Web App:** [https://wewake257.github.io/CreditShield-Pro/](https://wewake257.github.io/CreditShield-Pro/)  
